@@ -1,32 +1,57 @@
 from tkinter import *
 
 
-def clicked_button(window):
+def clicked_button(window, difficulty):
     window.destroy()
     main_window = Tk()
     main_window.title("3, 2, 1... Hangman!")
     main_window.geometry('500x500')
+    main_window.resizable(0, 0)
 
+    windowWidth2 = 500
+    windowHeight2 = 500
+
+    positionRight2 = int(main_window.winfo_screenwidth() / 2 - windowWidth2 / 2)          # Gets both half the screen width/height and window width/height
+    positionDown2 = int(main_window.winfo_screenheight() / 2 - windowHeight2 / 2)
+
+    main_window.geometry("+{}+{}".format(positionRight2, positionDown2))                  # Positions the window in the center of the page.
+
+    difficulty_level = difficulty
+    #print(difficulty_level)
     main_window.mainloop()
 
 
 def launch_game():
-
+    difficulty_level = ""
     welcome_window = Tk()
     welcome_window.title("Hangman")
-    welcome_window.geometry('200x200')
+    welcome_window.geometry('300x200')
 
-    welcome_label = Label(welcome_window, text="     Choose difficulty.\n", font=("Times new roman", 16))
-    welcome_label.grid(column=0, row=0)
+    windowWidth = welcome_window.winfo_reqwidth()                                           # Gets the requested values of the height and widht.
+    windowHeight = welcome_window.winfo_reqheight()
 
-    first_button = Button(welcome_window, text="   Easy  ", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window))
-    first_button.grid(column=0, row=3)
+    positionRight = int(welcome_window.winfo_screenwidth() / 2 - windowWidth / 2)           # Gets both half the screen width/height and window width/height
+    positionDown = int(welcome_window.winfo_screenheight() / 2 - windowHeight / 2)
 
-    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window))
-    second_button.grid(column=0, row=5)
+    welcome_window.geometry("+{}+{}".format(positionRight, positionDown))                   # Positions the window in the center of the page.
 
-    third_button = Button(welcome_window, text="   Hard  ", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window))
-    third_button.grid(column=0, row=7)
+    welcome_window.resizable(0, 0)
+
+    welcome_label = Label(welcome_window, text="Choose difficulty.\n", font=("Times new roman", 16))
+    welcome_label.pack()
+    welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
+
+    first_button = Button(welcome_window, text="   Easy  ", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window, "easy"))
+    first_button.pack()
+    first_button.place(relx=0.5, rely=0.3, anchor=CENTER)
+
+    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window, "medium"))
+    second_button.pack()
+    second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
+
+    third_button = Button(welcome_window, text="   Hard  ", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window, "hard"))
+    third_button.pack()
+    third_button.place(relx=0.5, rely=0.8, anchor=CENTER)
 
     welcome_window.mainloop()
 
