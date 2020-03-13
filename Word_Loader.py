@@ -10,10 +10,12 @@ hard_diff = 10
 
 
 # difficulty: -1 random; 0 easy; 1 normal; 2 hard
-def load_word(language=base_language, difficulty=-1):
+def load_word(language=base_language, difficulty=-1, used_words=[]):
     chosen_category_path = __choose_category(language)
     with open(chosen_category_path) as p:
-        words = p.readlines()
+        words = [w for w in p.readlines() if w not in used_words]
+        if len(words) == 0:
+            return load_word(language, difficulty, used_words)
         if difficulty == -1:
             return words[rand.randint(0, len(words) - 1)].strip()
         return __word_by_difficulty(words, difficulty)
