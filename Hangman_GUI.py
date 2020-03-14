@@ -1,8 +1,14 @@
 from tkinter import *
 import GameMaster as master
 
+main_window = None
+word_label = None
+
+
 
 def launch_main_window(window, difficulty):
+    global main_window, word_label
+
     word_settings = master.initialize_game(difficulty)                                              #Slowo, lista liter, stan gry
     window.destroy()
 
@@ -17,9 +23,19 @@ def launch_main_window(window, difficulty):
     positionDown2 = int(main_window.winfo_screenheight() / 2 - windowHeight2 / 2)
     main_window.geometry("+{}+{}".format(positionRight2, positionDown2))                  # Positions the window in the center of the page.
 
-    launch_polish_alphabet(main_window)
+    launch_alphabet(main_window, ["a","ą","b","c","ć","d","e","ę","f","g","h","i","j","k","l","ł","m","n","ń","o","ó","p","r","s","ś","t","u","w","y","z","ź","ż"])
+
+    word_label = Label(main_window, text=word_settings[0], font=("Times new roman", 25))
+    word_label.pack()
+    word_label.place(relx=0.5, rely=0.25, anchor=CENTER)
 
     main_window.mainloop()
+
+def update_main_window(letter):
+    global main_window, word_label
+    info = master.update_game(letter)
+    word_label.configure(text=info[0])
+
 
 
 def launch_welcome_window():
@@ -56,107 +72,25 @@ def launch_welcome_window():
     welcome_window.mainloop()
 
 
-def launch_polish_alphabet(window):
-
-    Abutton = Button(window, text=" a ", font=("Times new roman", 18), command=lambda: master.update_game("a"))
-    Abutton.pack()
-    Abutton.place(relx=0.15, rely=0.5, anchor=CENTER)
-
-    Aabutton = Button(window, text=" ą ", font=("Times new roman", 18), command=lambda: master.update_game("ą"))
-    Aabutton.pack()
-    Aabutton.place(relx=0.25, rely=0.5, anchor=CENTER)
-
-    Bbutton = Button(window, text=" b ", font=("Times new roman", 18), command=lambda: master.update_game("b"))
-    Bbutton.pack()
-    Bbutton.place(relx=0.35, rely=0.5, anchor=CENTER)
-
-    Cbutton = Button(window, text=" c ", font=("Times new roman", 18), command=lambda: master.update_game("c"))
-    Cbutton.pack()
-    Cbutton.place(relx=0.45, rely=0.5, anchor=CENTER)
-
-    Ccbutton = Button(window, text=" ć ", font=("Times new roman", 18), command=lambda: master.update_game("ć"))
-    Ccbutton.pack()
-    Ccbutton.place(relx=0.55, rely=0.5, anchor=CENTER)
-
-    Dbutton = Button(window, text=" d ", font=("Times new roman", 18), command=lambda: master.update_game("d"))
-    Dbutton.pack()
-    Dbutton.place(relx=0.65, rely=0.5, anchor=CENTER)
-
-    Ebutton = Button(window, text=" e ", font=("Times new roman", 18), command=lambda: master.update_game("e"))
-    Ebutton.pack()
-    Ebutton.place(relx=0.75, rely=0.5, anchor=CENTER)
-
-    Eebutton = Button(window, text=" ę ", font=("Times new roman", 18), command=lambda: master.update_game("ę"))
-    Eebutton.pack()
-    Eebutton.place(relx=0.85, rely=0.5, anchor=CENTER)
-
-    ####
-
-    Abutton = Button(window, text=" a ", font=("Times new roman", 18), command=lambda: master.update_game("a"))
-    Abutton.pack()
-    Abutton.place(relx=0.15, rely=0.5, anchor=CENTER)
-
-    Aabutton = Button(window, text=" ą ", font=("Times new roman", 18), command=lambda: master.update_game("ą"))
-    Aabutton.pack()
-    Aabutton.place(relx=0.25, rely=0.5, anchor=CENTER)
-
-    Bbutton = Button(window, text=" b ", font=("Times new roman", 18), command=lambda: master.update_game("b"))
-    Bbutton.pack()
-    Bbutton.place(relx=0.35, rely=0.5, anchor=CENTER)
-
-    Cbutton = Button(window, text=" c ", font=("Times new roman", 18), command=lambda: master.update_game("c"))
-    Cbutton.pack()
-    Cbutton.place(relx=0.45, rely=0.5, anchor=CENTER)
-
-    Ccbutton = Button(window, text=" ć ", font=("Times new roman", 18), command=lambda: master.update_game("ć"))
-    Ccbutton.pack()
-    Ccbutton.place(relx=0.55, rely=0.5, anchor=CENTER)
-
-    Dbutton = Button(window, text=" d ", font=("Times new roman", 18), command=lambda: master.update_game("d"))
-    Dbutton.pack()
-    Dbutton.place(relx=0.65, rely=0.5, anchor=CENTER)
-
-    Ebutton = Button(window, text=" e ", font=("Times new roman", 18), command=lambda: master.update_game("e"))
-    Ebutton.pack()
-    Ebutton.place(relx=0.75, rely=0.5, anchor=CENTER)
-
-    Eebutton = Button(window, text=" ę ", font=("Times new roman", 18), command=lambda: master.update_game("ę"))
-    Eebutton.pack()
-    Eebutton.place(relx=0.85, rely=0.5, anchor=CENTER)
-
-    ###
-
-    Abutton = Button(window, text=" a ", font=("Times new roman", 18), command=lambda: master.update_game("a"))
-    Abutton.pack()
-    Abutton.place(relx=0.15, rely=0.5, anchor=CENTER)
-
-    Aabutton = Button(window, text=" ą ", font=("Times new roman", 18), command=lambda: master.update_game("ą"))
-    Aabutton.pack()
-    Aabutton.place(relx=0.25, rely=0.5, anchor=CENTER)
-
-    Bbutton = Button(window, text=" b ", font=("Times new roman", 18), command=lambda: master.update_game("b"))
-    Bbutton.pack()
-    Bbutton.place(relx=0.35, rely=0.5, anchor=CENTER)
-
-    Cbutton = Button(window, text=" c ", font=("Times new roman", 18), command=lambda: master.update_game("c"))
-    Cbutton.pack()
-    Cbutton.place(relx=0.45, rely=0.5, anchor=CENTER)
-
-    Ccbutton = Button(window, text=" ć ", font=("Times new roman", 18), command=lambda: master.update_game("ć"))
-    Ccbutton.pack()
-    Ccbutton.place(relx=0.55, rely=0.5, anchor=CENTER)
-
-    Dbutton = Button(window, text=" d ", font=("Times new roman", 18), command=lambda: master.update_game("d"))
-    Dbutton.pack()
-    Dbutton.place(relx=0.65, rely=0.5, anchor=CENTER)
-
-    Ebutton = Button(window, text=" e ", font=("Times new roman", 18), command=lambda: master.update_game("e"))
-    Ebutton.pack()
-    Ebutton.place(relx=0.75, rely=0.5, anchor=CENTER)
-
-    Eebutton = Button(window, text=" ę ", font=("Times new roman", 18), command=lambda: master.update_game("ę"))
-    Eebutton.pack()
-    Eebutton.place(relx=0.85, rely=0.5, anchor=CENTER)
+def launch_alphabet(window, alphabet):
+    buttons = []
+    x = 0.15
+    y = 0.6
+    length = 0
+    for letter in alphabet:
+        if length != 7:
+            buttons.append(Button(window, text=letter, font=("Times new roman", 18), command=lambda let=letter: update_main_window(let)))
+            buttons[-1].pack()
+            buttons[-1].place(relx=x, rely=y, anchor=CENTER)
+            x += 0.1
+            length += 1
+        else:
+            buttons.append(Button(window, text=letter, font=("Times new roman", 18), command=lambda let=letter: update_main_window(let)))
+            buttons[-1].pack()
+            buttons[-1].place(relx=x, rely=y, anchor=CENTER)
+            x = 0.15
+            y += 0.1
+            length = 0
 
 
 launch_welcome_window()
