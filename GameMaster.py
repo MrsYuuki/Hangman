@@ -8,9 +8,8 @@ def start_game():
 
 
 
+
 def chosen_difficulty(window, difficulty):
-    window.destroy()
-    elo = GUI.launch_main_window()
-    print(elo)
+    print("jej")
 
 start_game()
