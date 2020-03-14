@@ -36,7 +36,7 @@ def word_hider():
     global used_letters, current_word
     hided_word = ""
     for l in current_word:
-        if l in used_letters:
+        if l in used_letters or l.isspace():
             hided_word += l
         else:
             hided_word += "_"
