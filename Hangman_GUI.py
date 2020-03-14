@@ -25,7 +25,7 @@ def launch_main_window(window, difficulty):
 
     launch_alphabet(main_window, ["a","ą","b","c","ć","d","e","ę","f","g","h","i","j","k","l","ł","m","n","ń","o","ó","p","r","s","ś","t","u","w","y","z","ź","ż"])
 
-    word_label = Label(main_window, text=word_settings[0], font=("Times new roman", 25))
+    word_label = Label(main_window, text=split_word_to_view(word_settings[0]), font=("Times new roman", 25))
     word_label.pack()
     word_label.place(relx=0.5, rely=0.25, anchor=CENTER)
 
@@ -34,9 +34,14 @@ def launch_main_window(window, difficulty):
 def update_main_window(letter):
     global main_window, word_label
     info = master.update_game(letter)
-    word_label.configure(text=info[0])
+    word_label.configure(text=split_word_to_view(info[0]))
 
 
+def split_word_to_view(word):
+    view_word = ""
+    for letter in word:
+        view_word = view_word+letter+" "
+    return view_word
 
 def launch_welcome_window():
     welcome_window = Tk()
