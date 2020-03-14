@@ -1,8 +1,9 @@
 from tkinter import *
+import Word_Loader as word
+import GameMaster as master
 
 
-def clicked_button(window, difficulty):
-    window.destroy()
+def launch_main_window():
     main_window = Tk()
     main_window.title("3, 2, 1... Hangman!")
     main_window.geometry('500x500')
@@ -16,12 +17,12 @@ def clicked_button(window, difficulty):
 
     main_window.geometry("+{}+{}".format(positionRight2, positionDown2))                  # Positions the window in the center of the page.
 
-    difficulty_level = difficulty
-    #print(difficulty_level)
+
+
     main_window.mainloop()
 
 
-def launch_game():
+def launch_welcome_window():
     difficulty_level = ""
     welcome_window = Tk()
     welcome_window.title("Hangman")
@@ -41,18 +42,17 @@ def launch_game():
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
-    first_button = Button(welcome_window, text="   Easy  ", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window, "easy"))
+    first_button = Button(welcome_window, text="   Easy  ", font=("Times new roman", 14), command=lambda: master.chosen_difficulty(welcome_window, 0))
     first_button.pack()
     first_button.place(relx=0.5, rely=0.3, anchor=CENTER)
 
-    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window, "medium"))
+    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: master.chosen_difficulty(welcome_window, 1))
     second_button.pack()
     second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-    third_button = Button(welcome_window, text="   Hard  ", font=("Times new roman", 14), command= lambda: clicked_button(welcome_window, "hard"))
+    third_button = Button(welcome_window, text="   Hard  ", font=("Times new roman", 14), command=lambda: master.chosen_difficulty(welcome_window, 2))
     third_button.pack()
     third_button.place(relx=0.5, rely=0.8, anchor=CENTER)
 
     welcome_window.mainloop()
 
-launch_game()
