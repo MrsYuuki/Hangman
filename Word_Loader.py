@@ -42,6 +42,3 @@ def __choose_category(language):
     path = getcwd() + base_directory + "\\" + language
     category_files = [f for f in listdir(path) if isfile(join(path, f))]
     return join(path, category_files[rand.randint(0, len(category_files) - 1)])
-
-
-print(load_word("Polish", 2))
