@@ -14,4 +14,4 @@ def initialize_game(difficulty, language="Polish"):
 
 
 def update_game(letter):
-
+    print(letter)
