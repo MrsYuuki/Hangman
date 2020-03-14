@@ -1,6 +1,9 @@
 from tkinter import *
 import Word_Loader as word
-import GameMaster as master
+
+
+def clicked_difficulty_btn(window, difficulty):
+    return [window, difficulty]
 
 
 def launch_main_window():
@@ -16,8 +19,6 @@ def launch_main_window():
     positionDown2 = int(main_window.winfo_screenheight() / 2 - windowHeight2 / 2)
 
     main_window.geometry("+{}+{}".format(positionRight2, positionDown2))                  # Positions the window in the center of the page.
-
-
 
     main_window.mainloop()
 
@@ -42,15 +43,15 @@ def launch_welcome_window():
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
-    first_button = Button(welcome_window, text="   Easy  ", font=("Times new roman", 14), command=lambda: master.chosen_difficulty(welcome_window, 0))
+    first_button = Button(welcome_window, text="   Easy  ", font=("Times new roman", 14), command=lambda: clicked_difficulty_btn(welcome_window, 0))
     first_button.pack()
     first_button.place(relx=0.5, rely=0.3, anchor=CENTER)
 
-    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: master.chosen_difficulty(welcome_window, 1))
+    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: clicked_difficulty_btn(welcome_window, 1))
     second_button.pack()
     second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-    third_button = Button(welcome_window, text="   Hard  ", font=("Times new roman", 14), command=lambda: master.chosen_difficulty(welcome_window, 2))
+    third_button = Button(welcome_window, text="   Hard  ", font=("Times new roman", 14), command=lambda: clicked_difficulty_btn(welcome_window, 2))
     third_button.pack()
     third_button.place(relx=0.5, rely=0.8, anchor=CENTER)
 

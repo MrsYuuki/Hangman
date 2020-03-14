@@ -3,12 +3,14 @@ import Word_Loader as word
 
 
 def start_game():
-    GUI.launch_welcome_window()
+    elo = GUI.launch_welcome_window()
+    print(elo)
 
 
 
 def chosen_difficulty(window, difficulty):
     window.destroy()
-    GUI.launch_main_window()
+    elo = GUI.launch_main_window()
+    print(elo)
 
 start_game()
