@@ -1,15 +1,17 @@
-import Hangman_GUI as GUI
 import Word_Loader as word
 
+current_word = ""
+used_letters = []
+used_words = []
+score = 0
 
-def start_game():
-    elo = GUI.launch_welcome_window()
-    print(elo)
+max_tries = 5
 
 
+def initialize_game(difficulty, language="Polish"):
+    current_word = word.load_word(language, difficulty, used_words)
+    used_letters = []
 
 
-def chosen_difficulty(window, difficulty):
-    print("jej")
+def update_game(letter):
 
-start_game()
