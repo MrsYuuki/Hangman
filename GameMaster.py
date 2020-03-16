@@ -24,11 +24,12 @@ def update_game(letter):
     letter = additional_upper(letter.upper())
     used_letters.append(letter.decode("utf-8"))
     hided_word = word_hider()
-    cur_tries += 1
-    if "_" not in hided_word: #win
+    if letter.decode("utf-8") not in current_word.decode("utf-8"):
+        cur_tries += 1
+    if "_" not in hided_word:  # win
         score += 1
         return [hided_word, used_letters, 1, score]
-    elif cur_tries == max_tries: #lose
+    elif cur_tries == max_tries:  # lose
         return [hided_word, used_letters, 2, score]
     return [hided_word, used_letters, 0, score]
 

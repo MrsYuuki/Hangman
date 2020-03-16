@@ -37,6 +37,7 @@ def launch_main_window(window, difficulty):
 
     main_window.mainloop()
 
+
 def update_main_window(letter):
     global main_window, word_label
     info = master.update_game(letter)
@@ -44,7 +45,9 @@ def update_main_window(letter):
     score_label.configure(text=info[3])
 
     if info[2] == 1:
-        messagebox.showinfo('3, 2, 1...Win!', 'You won!')
+        messagebox.showinfo('3, 2, 1... Win!', 'You win!')
+    if info[2] == 2:
+        messagebox.showinfo('3, 2, 1... Lose!', 'You lose!')
 
 
 def split_word_to_view(word):
@@ -52,6 +55,7 @@ def split_word_to_view(word):
     for letter in word:
         view_word = view_word+letter+" "
     return view_word
+
 
 def launch_welcome_window():
     welcome_window = Tk()
