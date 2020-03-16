@@ -16,7 +16,7 @@ def initialize_game(difficulty=-1, language="Polish"):
     used_words.append(current_word)
     used_letters = []
     cur_tries = 0
-    return [word_hider(), used_letters, 0, score]
+    return [word_hider(), used_letters, 0, score, max_tries, max_tries - cur_tries]
 
 
 def update_game(letter):
@@ -28,10 +28,10 @@ def update_game(letter):
         cur_tries += 1
     if "_" not in hided_word:  # win
         score += 1
-        return [hided_word, used_letters, 1, score]
+        return [hided_word, used_letters, 1, score, max_tries, max_tries - cur_tries]
     elif cur_tries == max_tries:  # lose
-        return [hided_word, used_letters, 2, score]
-    return [hided_word, used_letters, 0, score]
+        return [hided_word, used_letters, 2, score, max_tries, max_tries - cur_tries]
+    return [hided_word, used_letters, 0, score, max_tries, max_tries - cur_tries]
 
 
 def word_hider():

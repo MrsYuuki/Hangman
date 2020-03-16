@@ -6,10 +6,11 @@ import GameMaster as master
 main_window = None
 word_label = None
 score_label = None
+tries_label = None
 
 
 def launch_main_window(window, difficulty):
-    global main_window, word_label, score_label
+    global main_window, word_label, score_label, tries_label
 
     word_settings = master.initialize_game(difficulty)                                              #Slowo, lista liter, stan gry
     window.destroy()
@@ -31,18 +32,23 @@ def launch_main_window(window, difficulty):
     word_label.pack()
     word_label.place(relx=0.5, rely=0.25, anchor=CENTER)
 
-    score_label = Label(main_window, text=word_settings[3], font=("Times new roman", 15))
+    score_label = Label(main_window, text="Score: " + str(word_settings[3]), font=("Times new roman", 15))
     score_label.pack()
     score_label.place(relx=0.5, rely=0.4, anchor=CENTER)
+
+    tries_label = Label(main_window, text=str(word_settings[5]) + "/" + str(word_settings[4]), font=("Times new roman", 15))
+    tries_label.pack()
+    tries_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
     main_window.mainloop()
 
 
 def update_main_window(letter):
-    global main_window, word_label
+    global main_window, word_label, tries_label
     info = master.update_game(letter)
     word_label.configure(text=split_word_to_view(info[0]))
-    score_label.configure(text=info[3])
+    score_label.configure(text="Score: " + str(info[3]))
+    tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
 
     if info[2] == 1:
         messagebox.showinfo('3, 2, 1... Win!', 'You win!')
