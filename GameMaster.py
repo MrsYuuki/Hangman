@@ -12,7 +12,7 @@ max_tries = 5
 
 def initialize_game(difficulty=-1, language="Polish"):
     global cur_tries, current_word, used_letters, used_words, score
-    current_word = additional_upper(wordloader.load_word(language, difficulty, used_words).upper())
+    current_word = additional_upper(wordloader.load_word(language, difficulty, used_words))
     used_words.append(current_word)
     used_letters = []
     cur_tries = 0
@@ -21,10 +21,10 @@ def initialize_game(difficulty=-1, language="Polish"):
 
 def update_game(letter):
     global cur_tries, used_letters, score
-    letter = additional_upper(letter.upper())
-    used_letters.append(letter.decode("utf-8"))
+    letter = additional_upper(letter)
+    used_letters.append(letter)
     hided_word = word_hider()
-    if letter.decode("utf-8") not in current_word.decode("utf-8"):
+    if letter not in current_word:
         cur_tries += 1
     if "_" not in hided_word:  # win
         score += 1
@@ -37,7 +37,7 @@ def update_game(letter):
 def word_hider():
     global used_letters, current_word
     hided_word = ""
-    for l in current_word.decode("utf-8"):
+    for l in list(current_word):
         if l in used_letters or l.isspace():
             hided_word += l
         else:
@@ -46,13 +46,13 @@ def word_hider():
 
 
 def additional_upper(word):
-    word = word.replace("ą", "Ą")
-    word = word.replace("ć", "Ć")
-    word = word.replace("ę", "Ę")
-    word = word.replace("ł", "Ł")
-    word = word.replace("ń", "Ń")
-    word = word.replace("ó", "Ó")
-    word = word.replace("ś", "Ś")
-    word = word.replace("ż", "Ż")
-    word = word.replace("ź", "Ź")
-    return word
+    return word.upper()\
+        .replace("ą", "Ą")\
+        .replace("ć", "Ć")\
+        .replace("ę", "Ę")\
+        .replace("ł", "Ł")\
+        .replace("ń", "Ń")\
+        .replace("ó", "Ó")\
+        .replace("ś", "Ś")\
+        .replace("ż", "Ż")\
+        .replace("ź", "Ź")

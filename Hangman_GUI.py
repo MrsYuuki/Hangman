@@ -52,7 +52,7 @@ def update_main_window(letter):
 
 def split_word_to_view(word):
     view_word = ""
-    for letter in word:
+    for letter in list(word):
         view_word = view_word+letter+" "
     return view_word
 
