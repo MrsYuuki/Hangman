@@ -1,3 +1,4 @@
+# coding=utf-8
 from tkinter import *
 from tkinter import messagebox
 import GameMaster as master
@@ -105,6 +106,3 @@ def launch_alphabet(window, alphabet):
             x = 0.15
             y += 0.1
             length = 0
-
-
-launch_welcome_window()

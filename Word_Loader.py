@@ -1,3 +1,4 @@
+# coding=utf-8
 from os import listdir, getcwd
 from os.path import isfile, join
 import random as rand

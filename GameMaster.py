@@ -1,3 +1,4 @@
+# coding=utf-8
 import Word_Loader as wordloader
 
 current_word = ""
