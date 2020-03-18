@@ -61,6 +61,8 @@ def update_main_window(letter):
         launch_main_window(main_window, cur_diff, cur_lang)
     if info[2] == 2:
         messagebox.showinfo('3, 2, 1... Lose!', 'You lose!\nFinal score: ' + str(info[3]))
+        main_window.destroy()
+        launch_welcome_window()
 
 
 def split_word_to_view(word):
@@ -73,7 +75,7 @@ def split_word_to_view(word):
 def launch_welcome_window():
     welcome_window = Tk()
     welcome_window.title("Hangman")
-    welcome_window.geometry('300x200')
+    welcome_window.geometry('300x250')
 
     windowWidth = welcome_window.winfo_reqwidth()                                           # Gets the requested values of the height and widht.
     windowHeight = welcome_window.winfo_reqheight()
@@ -87,7 +89,7 @@ def launch_welcome_window():
 
     languages = lang.initialize_languages()
 
-    welcome_label = Label(welcome_window, text="Hangman\nChoose difficulty\n", font=("Times new roman", 16))
+    welcome_label = Label(welcome_window, text="Hangman!\nChoose difficulty\n", font=("Times new roman", 16))
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
