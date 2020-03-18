@@ -2,18 +2,24 @@
 from tkinter import *
 from tkinter import messagebox
 import GameMaster as master
+import Language as lang
 
 main_window = None
 word_label = None
 score_label = None
 tries_label = None
+cur_diff = None
+cur_lang = None
 
 
-def launch_main_window(window, difficulty):
-    global main_window, word_label, score_label, tries_label
+def launch_main_window(window, difficulty, language):
+    global main_window, word_label, score_label, tries_label, cur_diff, cur_lang
 
-    word_settings = master.initialize_game(difficulty)                                              #Slowo, lista liter, stan gry
-    window.destroy()
+    cur_diff = difficulty
+    cur_lang = language
+    word_settings = master.initialize_game(cur_diff)                                              #Slowo, lista liter, stan gry
+    if window is not None:
+        window.destroy()
 
     main_window = Tk()
     main_window.title("3, 2, 1... Hangman!")
@@ -26,7 +32,7 @@ def launch_main_window(window, difficulty):
     positionDown2 = int(main_window.winfo_screenheight() / 2 - windowHeight2 / 2)
     main_window.geometry("+{}+{}".format(positionRight2, positionDown2))                  # Positions the window in the center of the page.
 
-    launch_alphabet(main_window, ["a","ą","b","c","ć","d","e","ę","f","g","h","i","j","k","l","ł","m","n","ń","o","ó","p","r","s","ś","t","u","w","y","z","ź","ż"])
+    launch_alphabet(main_window, cur_lang.alphabet)
 
     word_label = Label(main_window, text=split_word_to_view(word_settings[0]), font=("Times new roman", 25))
     word_label.pack()
@@ -44,16 +50,17 @@ def launch_main_window(window, difficulty):
 
 
 def update_main_window(letter):
-    global main_window, word_label, tries_label
+    global score_label, word_label, tries_label
     info = master.update_game(letter)
     word_label.configure(text=split_word_to_view(info[0]))
     score_label.configure(text="Score: " + str(info[3]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
 
     if info[2] == 1:
-        messagebox.showinfo('3, 2, 1... Win!', 'You win!')
+        messagebox.showinfo('3, 2, 1... Win!', 'Correct!\nGet ready for the next word...')
+        launch_main_window(main_window, cur_diff, cur_lang)
     if info[2] == 2:
-        messagebox.showinfo('3, 2, 1... Lose!', 'You lose!')
+        messagebox.showinfo('3, 2, 1... Lose!', 'You lose!\nFinal score: ' + str(info[3]))
 
 
 def split_word_to_view(word):
@@ -78,19 +85,21 @@ def launch_welcome_window():
 
     welcome_window.resizable(0, 0)
 
-    welcome_label = Label(welcome_window, text="Choose difficulty.\n", font=("Times new roman", 16))
+    languages = lang.initialize_languages()
+
+    welcome_label = Label(welcome_window, text="Hangman\nChoose difficulty\n", font=("Times new roman", 16))
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
-    first_button = Button(welcome_window, text="Easy", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0), height=1, width=10)
+    first_button = Button(welcome_window, text="Easy", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, languages[1]), height=1, width=10)
     first_button.pack()
     first_button.place(relx=0.5, rely=0.3, anchor=CENTER)
 
-    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1), height=1, width=10)
+    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1, languages[1]), height=1, width=10)
     second_button.pack()
     second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-    third_button = Button(welcome_window, text="Hard", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 2), height=1, width=10)
+    third_button = Button(welcome_window, text="Hard", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 2, languages[1]), height=1, width=10)
     third_button.pack()
     third_button.place(relx=0.5, rely=0.8, anchor=CENTER)
 
