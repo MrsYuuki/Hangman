@@ -8,12 +8,13 @@ main_window = None
 word_label = None
 score_label = None
 tries_label = None
+category_label = None
 cur_diff = None
 cur_lang = None
 
 
 def launch_main_window(window, difficulty, language):
-    global main_window, word_label, score_label, tries_label, cur_diff, cur_lang
+    global main_window, word_label, score_label, tries_label, category_label, cur_diff, cur_lang
 
     cur_diff = difficulty
     cur_lang = language
@@ -41,7 +42,11 @@ def launch_main_window(window, difficulty, language):
 
     score_label = Label(main_window, text="Score: " + str(word_settings[3]), font=("Times new roman", 15))
     score_label.pack()
-    score_label.place(relx=0.5, rely=0.4, anchor=CENTER)
+    score_label.place(relx=0.8, rely=0.1, anchor=CENTER)
+
+    category_label = Label(main_window, text=word_settings[6], font=("Times new roman", 15))
+    category_label.pack()
+    category_label.place(relx=0.5, rely=0.4, anchor=CENTER)
 
     tries_label = Label(main_window, text=str(word_settings[5]) + "/" + str(word_settings[4]), font=("Times new roman", 15))
     tries_label.pack()

@@ -1,7 +1,7 @@
 # coding=utf-8
 import Word_Loader as wordloader
 
-current_word = ""
+current_word = None
 used_letters = []
 used_words = []
 score = 0
@@ -12,12 +12,12 @@ max_tries = 5
 
 def initialize_game(difficulty=-1, language="Polish"):
     global cur_tries, current_word, used_letters, used_words, score
-    current_word = wordloader.load_word(language, difficulty, used_words)
+    loaded_word = wordloader.load_word(language, difficulty, used_words)
     used_words.append(current_word)
-    current_word = additional_upper(current_word.strip())
+    current_word = additional_upper(loaded_word[0].strip())
     used_letters = []
     cur_tries = 0
-    return [word_hider(), used_letters, 0, score, max_tries, max_tries - cur_tries]
+    return [word_hider(), used_letters, 0, score, max_tries, max_tries - cur_tries, loaded_word[1].split(".")[0]]
 
 
 def update_game(letter):
