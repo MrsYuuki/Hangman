@@ -101,18 +101,18 @@ def launch_welcome_window():
     languages_list = ttk.Combobox(welcome_window, values=languages)
     languages_list.pack()
     languages_list.current(0)
-    languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.folder_name == languages_list.get()][0]))
+    languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.display_name == languages_list.get()][0]))
     languages_list.place(relx=0.5, rely=0.95, anchor=E)
 
     welcome_label = Label(welcome_window, text="Hangman!\nChoose difficulty\n", font=("Times new roman", 16))
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
-    first_button = Button(welcome_window, text="Easy", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.folder_name == languages_list.get()][0]), height=1, width=10)
+    first_button = Button(welcome_window, text="Easy", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
     first_button.pack()
     first_button.place(relx=0.5, rely=0.3, anchor=CENTER)
 
-    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1, [l for l in languages if l.folder_name == languages_list.get()][0]), height=1, width=10)
+    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
     second_button.pack()
     second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
 
