@@ -18,7 +18,7 @@ def load_word(language=base_language, difficulty=-1, used_words=[]):
         if len(words) == 0:
             return load_word(language, difficulty, used_words)
         if difficulty == -1:
-            return words[rand.randint(0, len(words) - 1)].strip()
+            return words[rand.randint(0, len(words) - 1)]
         return __word_by_difficulty(words, difficulty)
 
 
@@ -36,7 +36,7 @@ def __word_by_difficulty(words, difficulty):
             difficulty = 0
     if difficulty == 0:
         nwords = [w for w in words if len(w) < normal_diff]
-    return nwords[rand.randint(0, len(nwords) - 1)].strip()
+    return nwords[rand.randint(0, len(nwords) - 1)]
 
 
 def __choose_category(language):

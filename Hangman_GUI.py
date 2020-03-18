@@ -17,7 +17,7 @@ def launch_main_window(window, difficulty, language):
 
     cur_diff = difficulty
     cur_lang = language
-    word_settings = master.initialize_game(cur_diff)                                              #Slowo, lista liter, stan gry
+    word_settings = master.initialize_game(cur_diff, cur_lang.folder_name)                                              #Slowo, lista liter, stan gry
     if window is not None:
         window.destroy()
 
@@ -25,6 +25,7 @@ def launch_main_window(window, difficulty, language):
     main_window.title("3, 2, 1... Hangman!")
     main_window.geometry('500x500')
     main_window.resizable(0, 0)
+    main_window.focus_force()
 
     windowWidth2 = 500
     windowHeight2 = 500
@@ -62,6 +63,7 @@ def update_main_window(letter):
     if info[2] == 2:
         messagebox.showinfo('3, 2, 1... Lose!', 'You lose!\nFinal score: ' + str(info[3]))
         main_window.destroy()
+        master.reset_game()
         launch_welcome_window()
 
 
