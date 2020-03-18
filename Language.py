@@ -7,6 +7,9 @@ class Language:
         self.folder_name = folder_name
         self.alphabet = alphabet
 
+    def __str__(self):
+        return self.folder_name
+
 
 def initialize_languages():
     languages = []

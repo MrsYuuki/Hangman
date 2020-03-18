@@ -1,6 +1,7 @@
 # coding=utf-8
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
 import GameMaster as master
 import Language as lang
 
@@ -97,19 +98,25 @@ def launch_welcome_window():
 
     languages = lang.initialize_languages()
 
+    languages_list = ttk.Combobox(welcome_window, values=languages)
+    languages_list.pack()
+    languages_list.current(0)
+    languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.folder_name == languages_list.get()][0]))
+    languages_list.place(relx=0.5, rely=0.95, anchor=E)
+
     welcome_label = Label(welcome_window, text="Hangman!\nChoose difficulty\n", font=("Times new roman", 16))
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
-    first_button = Button(welcome_window, text="Easy", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, languages[1]), height=1, width=10)
+    first_button = Button(welcome_window, text="Easy", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.folder_name == languages_list.get()][0]), height=1, width=10)
     first_button.pack()
     first_button.place(relx=0.5, rely=0.3, anchor=CENTER)
 
-    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1, languages[1]), height=1, width=10)
+    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1, [l for l in languages if l.folder_name == languages_list.get()][0]), height=1, width=10)
     second_button.pack()
     second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-    third_button = Button(welcome_window, text="Hard", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 2, languages[1]), height=1, width=10)
+    third_button = Button(welcome_window, text="Hard", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 2, [l for l in languages if l.folder_name == languages_list.get()][0]), height=1, width=10)
     third_button.pack()
     third_button.place(relx=0.5, rely=0.8, anchor=CENTER)
 
@@ -132,3 +139,7 @@ def launch_alphabet(window, alphabet):
             x = 0.15
             y += 0.1
             length = 0
+
+
+def language_changed(language):
+    print("Setting " + language.folder_name + " language")
