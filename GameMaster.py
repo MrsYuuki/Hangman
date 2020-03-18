@@ -12,8 +12,9 @@ max_tries = 5
 
 def initialize_game(difficulty=-1, language="Polish"):
     global cur_tries, current_word, used_letters, used_words, score
-    current_word = additional_upper(wordloader.load_word(language, difficulty, used_words))
+    current_word = wordloader.load_word(language, difficulty, used_words)
     used_words.append(current_word)
+    current_word = additional_upper(current_word.strip())
     used_letters = []
     cur_tries = 0
     return [word_hider(), used_letters, 0, score, max_tries, max_tries - cur_tries]
@@ -26,12 +27,21 @@ def update_game(letter):
     hided_word = word_hider()
     if letter not in current_word:
         cur_tries += 1
+    else:
+        score += current_word.count(letter)
+
     if "_" not in hided_word:  # win
-        score += 1
+        score += 10 * len(used_words)
         return [hided_word, used_letters, 1, score, max_tries, max_tries - cur_tries]
     elif cur_tries == max_tries:  # lose
         return [hided_word, used_letters, 2, score, max_tries, max_tries - cur_tries]
     return [hided_word, used_letters, 0, score, max_tries, max_tries - cur_tries]
+
+
+def reset_game():
+    global used_words, score
+    used_words = []
+    score = 0
 
 
 def word_hider():
