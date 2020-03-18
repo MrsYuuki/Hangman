@@ -12,7 +12,7 @@ hard_diff = 10
 
 # difficulty: -1 random; 0 easy; 1 normal; 2 hard
 def load_word(language=base_language, difficulty=-1, used_words=[]):
-    all_words = __load_words_lang(language, used_words)
+    all_words = __load_words_lang(language)
     words = [w for w in all_words if w[0] not in used_words]
     if len(words) == 0:
         words = all_words
@@ -35,10 +35,14 @@ def __word_by_difficulty(words, difficulty):
             difficulty = 0
     if difficulty == 0:
         nwords = [w for w in words if len(w[0]) < normal_diff]
+
+    if len(nwords) == 0:
+        nwords = words
+
     return nwords[rand.randint(0, len(nwords) - 1)]
 
 
-def __load_words_lang(language, used_words):
+def __load_words_lang(language):
     path = getcwd() + base_directory + "\\" + language
     category_files = [f for f in listdir(path) if isfile(join(path, f))]
     all_words = []

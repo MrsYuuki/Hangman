@@ -13,7 +13,9 @@ max_tries = 5
 def initialize_game(difficulty=-1, language="Polish"):
     global cur_tries, current_word, used_letters, used_words, score
     loaded_word = wordloader.load_word(language, difficulty, used_words)
-    used_words.append(current_word)
+    if loaded_word[0] in used_words:
+        used_words = []
+    used_words.append(loaded_word[0])
     current_word = additional_upper(loaded_word[0].strip())
     used_letters = []
     cur_tries = 0

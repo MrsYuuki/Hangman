@@ -83,6 +83,7 @@ def launch_welcome_window():
     welcome_window = Tk()
     welcome_window.title("Hangman")
     welcome_window.geometry('300x250')
+    welcome_window.focus_force()
 
     windowWidth = welcome_window.winfo_reqwidth()                                           # Gets the requested values of the height and widht.
     windowHeight = welcome_window.winfo_reqheight()
@@ -121,16 +122,13 @@ def launch_alphabet(window, alphabet):
     y = 0.6
     length = 0
     for letter in alphabet:
+        buttons.append(Button(window, text=letter, font=("Times new roman", 18), command=lambda let=letter: update_main_window(let), height=1, width=3))
+        buttons[-1].pack()
+        buttons[-1].place(relx=x, rely=y, anchor=CENTER)
         if length != 7:
-            buttons.append(Button(window, text=letter, font=("Times new roman", 18), command=lambda let=letter: update_main_window(let), height=1, width=3))
-            buttons[-1].pack()
-            buttons[-1].place(relx=x, rely=y, anchor=CENTER)
             x += 0.1
             length += 1
         else:
-            buttons.append(Button(window, text=letter, font=("Times new roman", 18), command=lambda let=letter: update_main_window(let), height=1, width=3))
-            buttons[-1].pack()
-            buttons[-1].place(relx=x, rely=y, anchor=CENTER)
             x = 0.15
             y += 0.1
             length = 0
