@@ -15,6 +15,7 @@ tries_label = None
 category_label = None
 cur_diff = None
 cur_lang = None
+alphabet_buttons = None
 
 t, lang_code = translate.basic_language()
 t.install()
@@ -64,11 +65,13 @@ def launch_main_window(window, difficulty, language):
 
 
 def update_main_window(letter):
-    global score_label, word_label, tries_label
+    global score_label, word_label, tries_label, alphabet_buttons
     info = master.update_game(letter)
     word_label.configure(text=split_word_to_view(info[0]))
     score_label.configure(text=_("Score:") + " " + str(info[3]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
+
+    [b for b in alphabet_buttons if b['text'] == letter][0]['state'] = DISABLED
 
     if info[2] == 1:
         messagebox.showinfo(_('3, 2, 1... Win!'), _('Correct!') + '\n' + _('Get ready for the next word...'))
@@ -132,14 +135,15 @@ def launch_welcome_window():
 
 
 def launch_alphabet(window, alphabet):
-    buttons = []
+    global alphabet_buttons
+    alphabet_buttons = []
     x = 0.15
     y = 0.6
     length = 0
     for letter in alphabet:
-        buttons.append(Button(window, text=letter, font=("Times new roman", 18), command=lambda let=letter: update_main_window(let), height=1, width=3))
-        buttons[-1].pack()
-        buttons[-1].place(relx=x, rely=y, anchor=CENTER)
+        alphabet_buttons.append(Button(window, text=letter, font=("Times new roman", 18), command=lambda let=letter: update_main_window(let), height=1, width=3))
+        alphabet_buttons[-1].pack()
+        alphabet_buttons[-1].place(relx=x, rely=y, anchor=CENTER)
         if length != 7:
             x += 0.1
             length += 1
