@@ -3,7 +3,6 @@ from os import getcwd
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-import gettext
 import Translator as translate
 import GameMaster as master
 import Language as lang
@@ -16,6 +15,8 @@ tries_label = None
 category_label = None
 cur_diff = None
 cur_lang = None
+
+lang_n = 0
 
 t = translate.basic_language()
 t.install()
@@ -75,7 +76,7 @@ def update_main_window(letter):
         messagebox.showinfo(_('3, 2, 1... Win!'), _('Correct!') + '\n' + _('Get ready for the next word...'))
         launch_main_window(main_window, cur_diff, cur_lang)
     if info[2] == 2:
-        messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + _('Final score:' + ' ' + str(info[3])))
+        messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + _('Final score:') + ' ' + str(info[3]))
         main_window.destroy()
         master.reset_game()
         launch_welcome_window()
@@ -88,8 +89,8 @@ def split_word_to_view(word):
     return view_word
 
 
-def launch_welcome_window(lang_n=0):
-    global welcome_window
+def launch_welcome_window():
+    global welcome_window, lang_n
     welcome_window = Tk()
     welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
@@ -150,10 +151,11 @@ def launch_alphabet(window, alphabet):
             length = 0
 
 
-def language_changed(language, lang_n):
-    global t, _, welcome_window
+def language_changed(language, lang_n_changed):
+    global t, _, welcome_window, lang_n
     t = translate.language_change(language.lang_code)
     t.install()
     _ = t.gettext
     welcome_window.destroy()
-    launch_welcome_window(lang_n)
+    lang_n = lang_n_changed
+    launch_welcome_window()
