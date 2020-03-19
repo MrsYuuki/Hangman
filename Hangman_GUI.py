@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
+from gettext import gettext
 import GameMaster as master
 import Language as lang
 
@@ -13,6 +14,7 @@ category_label = None
 cur_diff = None
 cur_lang = None
 
+_ = gettext
 
 def launch_main_window(window, difficulty, language):
     global main_window, word_label, score_label, tries_label, category_label, cur_diff, cur_lang
@@ -24,7 +26,7 @@ def launch_main_window(window, difficulty, language):
         window.destroy()
 
     main_window = Tk()
-    main_window.title("3, 2, 1... Hangman!")
+    main_window.title(_("3, 2, 1... Hangman!"))
     main_window.geometry('500x500')
     main_window.resizable(0, 0)
     main_window.focus_force()
@@ -41,7 +43,7 @@ def launch_main_window(window, difficulty, language):
     word_label.pack()
     word_label.place(relx=0.5, rely=0.25, anchor=CENTER)
 
-    score_label = Label(main_window, text="Score: " + str(word_settings[3]), font=("Times new roman", 15))
+    score_label = Label(main_window, text=_("Score:") + ' ' + str(word_settings[3]), font=("Times new roman", 15))
     score_label.pack()
     score_label.place(relx=0.8, rely=0.1, anchor=CENTER)
 
@@ -60,14 +62,14 @@ def update_main_window(letter):
     global score_label, word_label, tries_label
     info = master.update_game(letter)
     word_label.configure(text=split_word_to_view(info[0]))
-    score_label.configure(text="Score: " + str(info[3]))
+    score_label.configure(text=_("Score:") + " " + str(info[3]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
 
     if info[2] == 1:
-        messagebox.showinfo('3, 2, 1... Win!', 'Correct!\nGet ready for the next word...')
+        messagebox.showinfo(_('3, 2, 1... Win!'), _('Correct!') + '\n' + _('Get ready for the next word...'))
         launch_main_window(main_window, cur_diff, cur_lang)
     if info[2] == 2:
-        messagebox.showinfo('3, 2, 1... Lose!', 'You lose!\nFinal score: ' + str(info[3]))
+        messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + _('Final score:' + ' ' + str(info[3])))
         main_window.destroy()
         master.reset_game()
         launch_welcome_window()
@@ -82,7 +84,7 @@ def split_word_to_view(word):
 
 def launch_welcome_window():
     welcome_window = Tk()
-    welcome_window.title("Hangman")
+    welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
     welcome_window.focus_force()
 
@@ -104,19 +106,19 @@ def launch_welcome_window():
     languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.display_name == languages_list.get()][0]))
     languages_list.place(relx=0.5, rely=0.95, anchor=E)
 
-    welcome_label = Label(welcome_window, text="Hangman!\nChoose difficulty\n", font=("Times new roman", 16))
+    welcome_label = Label(welcome_window, text=_("Hangman!") + '\n' + _("Choose difficulty") + '\n', font=("Times new roman", 16))
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
-    first_button = Button(welcome_window, text="Easy", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
+    first_button = Button(welcome_window, text=_("Easy"), font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
     first_button.pack()
     first_button.place(relx=0.5, rely=0.3, anchor=CENTER)
 
-    second_button = Button(welcome_window, text="Medium", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
+    second_button = Button(welcome_window, text=_("Medium"), font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
     second_button.pack()
     second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-    third_button = Button(welcome_window, text="Hard", font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 2, [l for l in languages if l.folder_name == languages_list.get()][0]), height=1, width=10)
+    third_button = Button(welcome_window, text=_("Hard"), font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 2, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
     third_button.pack()
     third_button.place(relx=0.5, rely=0.8, anchor=CENTER)
 
