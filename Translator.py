@@ -15,6 +15,6 @@ def language_change(lang_code):
 
 
 def basic_language():
-    if locale.getdefaultlocale() in languages:
-        return languages[locale.getdefaultlocale()]
-    return languages['en_US']
+    if locale.getdefaultlocale()[0] in languages:
+        return languages[locale.getdefaultlocale()[0]], locale.getdefaultlocale()[0]
+    return languages['en_US'], 'en_US'

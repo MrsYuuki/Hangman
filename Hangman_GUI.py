@@ -16,9 +16,7 @@ category_label = None
 cur_diff = None
 cur_lang = None
 
-lang_n = 0
-
-t = translate.basic_language()
+t, lang_code = translate.basic_language()
 t.install()
 _ = t.gettext
 
@@ -90,7 +88,7 @@ def split_word_to_view(word):
 
 
 def launch_welcome_window():
-    global welcome_window, lang_n
+    global welcome_window, lang_code
     welcome_window = Tk()
     welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
@@ -110,8 +108,8 @@ def launch_welcome_window():
 
     languages_list = ttk.Combobox(welcome_window, values=languages)
     languages_list.pack()
-    languages_list.current(lang_n)
-    languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.display_name == languages_list.get()][0], languages_list.current()))
+    languages_list.current(languages.index([l for l in languages if l.lang_code == lang_code][0]))
+    languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.display_name == languages_list.get()][0]))
     languages_list.place(relx=0.5, rely=0.95, anchor=E)
 
     welcome_label = Label(welcome_window, text=_("Hangman!") + "\n" + _("Choose difficulty") + "\n", font=("Times new roman", 16))
@@ -151,11 +149,11 @@ def launch_alphabet(window, alphabet):
             length = 0
 
 
-def language_changed(language, lang_n_changed):
-    global t, _, welcome_window, lang_n
+def language_changed(language):
+    global t, _, welcome_window, lang_code
     t = translate.language_change(language.lang_code)
     t.install()
     _ = t.gettext
     welcome_window.destroy()
-    lang_n = lang_n_changed
+    lang_code = language.lang_code
     launch_welcome_window()
