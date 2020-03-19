@@ -6,6 +6,7 @@ from tkinter import ttk
 import Translator as translate
 import GameMaster as master
 import Language as lang
+import shelve
 
 main_window = None
 welcome_window = None
@@ -118,6 +119,12 @@ def launch_welcome_window():
     welcome_label = Label(welcome_window, text=_("Hangman!") + "\n" + _("Choose difficulty") + "\n", font=("Times new roman", 16))
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
+
+    d = shelve.open('score')
+    score_label = Label(welcome_window, text=_("High Score:") + ' ' + str(d['score']), font=("Times new roman", 13))
+    score_label.pack()
+    score_label.place(relx=0.5, rely=0.95, anchor=W)
+    d.close()
 
     first_button = Button(welcome_window, text=_("Easy"), font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
     first_button.pack()
