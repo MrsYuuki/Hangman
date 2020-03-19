@@ -1,8 +1,10 @@
 # coding=utf-8
+from os import getcwd
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-from gettext import gettext
+import gettext
+import Translator as translate
 import GameMaster as master
 import Language as lang
 
@@ -14,7 +16,10 @@ category_label = None
 cur_diff = None
 cur_lang = None
 
-_ = gettext
+t = lang_pl = gettext.translation('gui', localedir=getcwd()+'\\locale', languages=['pl_PL'])
+t.install()
+_ = t.lgettext
+
 
 def launch_main_window(window, difficulty, language):
     global main_window, word_label, score_label, tries_label, category_label, cur_diff, cur_lang
@@ -106,7 +111,7 @@ def launch_welcome_window():
     languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.display_name == languages_list.get()][0]))
     languages_list.place(relx=0.5, rely=0.95, anchor=E)
 
-    welcome_label = Label(welcome_window, text=_("Hangman!") + '\n' + _("Choose difficulty") + '\n', font=("Times new roman", 16))
+    welcome_label = Label(welcome_window, text=_("Hangman!") + b"\n" + _("Choose difficulty") + b"\n", font=("Times new roman", 16))
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 

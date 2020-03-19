@@ -1,0 +1,77 @@
+# Polish (Poland) translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-03-19 15:31+0100\n"
+"PO-Revision-Date: 2020-03-19 15:37+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: pl_PL\n"
+"Language-Team: pl_PL <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: D:/Repos/Hangman/Hangman_GUI.py:31
+msgid "3, 2, 1... Hangman!"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:48 D:/Repos/Hangman/Hangman_GUI.py:67
+msgid "Score:"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:71
+msgid "3, 2, 1... Win!"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:71
+msgid "Correct!"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:71
+msgid "Get ready for the next word..."
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:74
+msgid "3, 2, 1... Lose!"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:74
+msgid "You lose!"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:74
+msgid "Final score: "
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:89
+msgid "Hangman"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:111
+msgid "Hangman!"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:111
+msgid "Choose difficulty"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:115
+msgid "Easy"
+msgstr "kukurwa"
+
+#: D:/Repos/Hangman/Hangman_GUI.py:119
+msgid "Medium"
+msgstr ""
+
+#: D:/Repos/Hangman/Hangman_GUI.py:123
+msgid "Hard"
+msgstr ""
+
