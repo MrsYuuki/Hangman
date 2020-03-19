@@ -47,7 +47,7 @@ msgid "You lose!"
 msgstr ""
 
 #: D:/Repos/Hangman/Hangman_GUI.py:74
-msgid "Final score: "
+msgid "Final score:"
 msgstr ""
 
 #: D:/Repos/Hangman/Hangman_GUI.py:89
