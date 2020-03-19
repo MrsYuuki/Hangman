@@ -9,6 +9,7 @@ import GameMaster as master
 import Language as lang
 
 main_window = None
+welcome_window = None
 word_label = None
 score_label = None
 tries_label = None
@@ -16,9 +17,9 @@ category_label = None
 cur_diff = None
 cur_lang = None
 
-t = lang_pl = gettext.translation('gui', localedir=getcwd()+'\\locale', languages=['pl_PL'])
+t = translate.basic_language()
 t.install()
-_ = t.lgettext
+_ = t.gettext
 
 
 def launch_main_window(window, difficulty, language):
@@ -87,7 +88,8 @@ def split_word_to_view(word):
     return view_word
 
 
-def launch_welcome_window():
+def launch_welcome_window(lang_n=0):
+    global welcome_window
     welcome_window = Tk()
     welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
@@ -107,11 +109,11 @@ def launch_welcome_window():
 
     languages_list = ttk.Combobox(welcome_window, values=languages)
     languages_list.pack()
-    languages_list.current(0)
-    languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.display_name == languages_list.get()][0]))
+    languages_list.current(lang_n)
+    languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.display_name == languages_list.get()][0], languages_list.current()))
     languages_list.place(relx=0.5, rely=0.95, anchor=E)
 
-    welcome_label = Label(welcome_window, text=_("Hangman!") + b"\n" + _("Choose difficulty") + b"\n", font=("Times new roman", 16))
+    welcome_label = Label(welcome_window, text=_("Hangman!") + "\n" + _("Choose difficulty") + "\n", font=("Times new roman", 16))
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
@@ -148,5 +150,10 @@ def launch_alphabet(window, alphabet):
             length = 0
 
 
-def language_changed(language):
-    print("Setting " + language.folder_name + " language")
+def language_changed(language, lang_n):
+    global t, _, welcome_window
+    t = translate.language_change(language.lang_code)
+    t.install()
+    _ = t.gettext
+    welcome_window.destroy()
+    launch_welcome_window(lang_n)
