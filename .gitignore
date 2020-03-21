@@ -133,3 +133,7 @@ dmypy.json
 data.bak
 data.dat
 data.dir
+
+score.bak
+score.dat
+score.dir

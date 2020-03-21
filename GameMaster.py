@@ -37,7 +37,7 @@ def update_game(letter):
         score += 10 * len(used_words)
         return [hided_word, used_letters, 1, score, max_tries, max_tries - cur_tries]
     elif cur_tries == max_tries:  # lose
-        d = shelve.open('score')
+        d = shelve.open('data')
         highscore = d['score']
         if score > highscore:
             d['score'] = score
