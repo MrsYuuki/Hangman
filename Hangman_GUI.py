@@ -38,6 +38,8 @@ def launch_main_window(window, difficulty, language):
     main_window.resizable(0, 0)
     main_window.focus_force()
 
+    main_window.bind("<Key>", key_pressed_game)
+
     windowWidth2 = 500
     windowHeight2 = 500
     positionRight2 = int(main_window.winfo_screenwidth() / 2 - windowWidth2 / 2)          # Gets both half the screen width/height and window width/height
@@ -82,6 +84,10 @@ def update_main_window(letter):
         main_window.destroy()
         master.reset_game()
         launch_welcome_window()
+
+
+def key_pressed_game(event):
+    print(event.char)
 
 
 def split_word_to_view(word):
