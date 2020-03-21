@@ -1,5 +1,6 @@
 import gettext
 import locale
+import shelve
 from os import getcwd
 
 languages = {
@@ -10,11 +11,22 @@ languages = {
 
 def language_change(lang_code):
     if lang_code in languages:
+        d = shelve.open('data')
+        d['lang'] = lang_code
         return languages[lang_code]
     return languages['en_US']
 
 
 def basic_language():
-    if locale.getdefaultlocale()[0] in languages:
-        return languages[locale.getdefaultlocale()[0]], locale.getdefaultlocale()[0]
-    return languages['en_US'], 'en_US'
+    d = shelve.open('data')
+    try:
+        lang_code = d['lang']
+    except KeyError:
+        if locale.getdefaultlocale()[0] in languages:
+            lang_code = locale.getdefaultlocale()[0]
+        else:
+            lang_code = 'en_US'
+        d['lang'] = lang_code
+    d.close()
+
+    return languages[lang_code], lang_code

@@ -120,7 +120,7 @@ def launch_welcome_window():
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
-    d = shelve.open('score')
+    d = shelve.open('data')
     score_label = Label(welcome_window, text=_("High Score:") + ' ' + str(d['score']), font=("Times new roman", 13))
     score_label.pack()
     score_label.place(relx=0.5, rely=0.95, anchor=W)

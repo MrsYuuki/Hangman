@@ -3,7 +3,7 @@ import shelve
 
 
 def start():
-    d = shelve.open('score')
+    d = shelve.open('data')
     try:
         score = d['score']
     except KeyError:
