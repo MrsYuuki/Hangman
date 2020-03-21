@@ -17,6 +17,7 @@ category_label = None
 cur_diff = None
 cur_lang = None
 alphabet_buttons = None
+used_letters = None
 
 t, lang_code = translate.basic_language()
 t.install()
@@ -24,8 +25,9 @@ _ = t.gettext
 
 
 def launch_main_window(window, difficulty, language):
-    global main_window, word_label, score_label, tries_label, category_label, cur_diff, cur_lang
+    global main_window, word_label, score_label, tries_label, category_label, cur_diff, cur_lang, used_letters
 
+    used_letters = []
     cur_diff = difficulty
     cur_lang = language
     word_settings = master.initialize_game(cur_diff, cur_lang.folder_name)                                              #Slowo, lista liter, stan gry
@@ -68,11 +70,12 @@ def launch_main_window(window, difficulty, language):
 
 
 def update_main_window(letter):
-    global score_label, word_label, tries_label, alphabet_buttons
+    global score_label, word_label, tries_label, alphabet_buttons, used_letters
     info = master.update_game(letter)
     word_label.configure(text=split_word_to_view(info[0]))
     score_label.configure(text=_("Score:") + " " + str(info[3]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
+    used_letters = info[1]
 
     [b for b in alphabet_buttons if b['text'] == letter][0]['state'] = DISABLED
 
@@ -87,7 +90,9 @@ def update_main_window(letter):
 
 
 def key_pressed_game(event):
-    print(event.char)
+    global cur_lang, used_letters
+    if event.char in cur_lang.alphabet and master.additional_upper(event.char) not in used_letters:
+        update_main_window(event.char)
 
 
 def split_word_to_view(word):
