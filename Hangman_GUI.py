@@ -14,6 +14,7 @@ word_label = None
 score_label = None
 tries_label = None
 category_label = None
+used_letters_label = None
 cur_diff = None
 cur_lang = None
 alphabet_buttons = None
@@ -25,7 +26,7 @@ _ = t.gettext
 
 
 def launch_main_window(window, difficulty, language):
-    global main_window, word_label, score_label, tries_label, category_label, cur_diff, cur_lang, used_letters
+    global main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters
 
     used_letters = []
     cur_diff = difficulty
@@ -39,6 +40,7 @@ def launch_main_window(window, difficulty, language):
     main_window.geometry('500x500')
     main_window.resizable(0, 0)
     main_window.focus_force()
+    main_window.iconbitmap(getcwd() + "/icon.ico")
 
     main_window.bind("<Key>", key_pressed_game)
 
@@ -62,6 +64,10 @@ def launch_main_window(window, difficulty, language):
     category_label.pack()
     category_label.place(relx=0.5, rely=0.4, anchor=CENTER)
 
+    used_letters_label = Label(main_window, text="", font=("Times new roman", 15))
+    used_letters_label.pack()
+    used_letters_label.place(relx=0.5, rely=0.5, anchor=CENTER)
+
     tries_label = Label(main_window, text=str(word_settings[5]) + "/" + str(word_settings[4]), font=("Times new roman", 15))
     tries_label.pack()
     tries_label.place(relx=0.5, rely=0.15, anchor=CENTER)
@@ -70,12 +76,13 @@ def launch_main_window(window, difficulty, language):
 
 
 def update_main_window(letter):
-    global score_label, word_label, tries_label, alphabet_buttons, used_letters
+    global score_label, word_label, tries_label, used_letters_label, alphabet_buttons, used_letters
     info = master.update_game(letter)
     word_label.configure(text=split_word_to_view(info[0]))
     score_label.configure(text=_("Score:") + " " + str(info[3]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
     used_letters = info[1]
+    used_letters_label.configure(text=str(used_letters))
 
     [b for b in alphabet_buttons if b['text'] == letter][0]['state'] = DISABLED
 
@@ -105,6 +112,7 @@ def split_word_to_view(word):
 def launch_welcome_window():
     global welcome_window, lang_code
     welcome_window = Tk()
+    welcome_window.iconbitmap(getcwd() + "/icon.ico")
     welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
     welcome_window.focus_force()
