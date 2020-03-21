@@ -1,7 +1,8 @@
 # coding=utf-8
-from os import listdir, getcwd
+from os import listdir
 from os.path import isfile, join
 import random as rand
+import GameMaster as master
 
 base_directory = "\\Words"
 base_language = "Polish"
@@ -43,7 +44,7 @@ def __word_by_difficulty(words, difficulty):
 
 
 def __load_words_lang(language):
-    path = getcwd() + base_directory + "\\" + language
+    path = master.resource_path(base_directory) + "\\" + language
     category_files = [f for f in listdir(path) if isfile(join(path, f))]
     all_words = []
     for cat in category_files:

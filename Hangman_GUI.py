@@ -1,5 +1,4 @@
 # coding=utf-8
-from os import getcwd
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
@@ -40,7 +39,7 @@ def launch_main_window(window, difficulty, language):
     main_window.geometry('500x500')
     main_window.resizable(0, 0)
     main_window.focus_force()
-    main_window.iconbitmap(getcwd() + "/icon.ico")
+    main_window.iconbitmap(master.resource_path("/icon.ico"))
 
     main_window.bind("<Key>", key_pressed_game)
 
@@ -112,7 +111,7 @@ def split_word_to_view(word):
 def launch_welcome_window():
     global welcome_window, lang_code
     welcome_window = Tk()
-    welcome_window.iconbitmap(getcwd() + "/icon.ico")
+    welcome_window.iconbitmap(master.resource_path("/icon.ico"))
     welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
     welcome_window.focus_force()

@@ -1,6 +1,8 @@
 # coding=utf-8
 import Word_Loader as wordloader
 import shelve
+import sys
+import os
 
 current_word = None
 used_letters = []
@@ -74,3 +76,12 @@ def additional_upper(word):
         .replace("ś", "Ś")\
         .replace("ż", "Ż")\
         .replace("ź", "Ź")
+
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return base_path + relative_path
