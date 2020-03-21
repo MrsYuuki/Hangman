@@ -8,7 +8,7 @@ used_words = []
 score = 0
 
 cur_tries = 0
-max_tries = 5
+max_tries = 7
 
 
 def initialize_game(difficulty=-1, language="Polish"):
