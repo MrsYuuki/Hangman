@@ -54,13 +54,13 @@ def reset_game():
 
 def word_hider():
     global used_letters, current_word
-    hided_word = ""
+    hidden_word = ""
     for l in list(current_word):
         if l in used_letters or l.isspace():
-            hided_word += l
+            hidden_word += l
         else:
-            hided_word += "_"
-    return hided_word
+            hidden_word += "_"
+    return hidden_word
 
 
 def additional_upper(word):
