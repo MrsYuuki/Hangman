@@ -1,0 +1,17 @@
+czerwony
+zielony
+żółty
+niebieski
+czarny
+biały
+purpura
+brąz
+róż
+szary
+pomarańczowy
+barwa morska
+srebro
+karmazyn
+turkus
+indygo
+magenta

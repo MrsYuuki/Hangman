@@ -1,0 +1,21 @@
+ulica
+samochód
+znak drogowy
+pręt
+budynek
+autobus
+przystanek
+sklep
+pieszy
+płot
+brama
+rower
+kościół
+kąt
+skrzyżowanie
+tunel
+rondo
+ławka
+budka telefoniczna
+żywopłot
+most

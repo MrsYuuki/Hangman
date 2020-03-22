@@ -1,0 +1,16 @@
+mężczyzna
+kobieta
+chłopiec
+dziewczyna
+niemowlę
+ojciec
+syn
+córka
+dziadek
+babcia
+brat
+siostra
+kuzyn
+teść
+przyjaciel
+wróg

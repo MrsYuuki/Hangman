@@ -1,0 +1,18 @@
+pochmurny
+deszczowy
+burzowy
+temperatura
+gorący
+chmura
+deszcz
+burza
+błyskawica
+grzmot
+grad
+śnieg
+mróz
+wiatr
+trąba powietrzna
+mgła
+powódź
+tęcza

@@ -1,0 +1,17 @@
+oddział
+łóżko
+pacjent
+doktor
+pielęgniarka
+chirurg
+operacja
+kroplówka
+strzykawka
+igła
+kula
+maska
+rękawica
+ambulans
+nosze
+bandaż
+stetoskop

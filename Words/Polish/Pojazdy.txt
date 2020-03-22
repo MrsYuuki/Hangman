@@ -1,0 +1,26 @@
+ciężarówka
+pociąg
+samochód
+autobus
+skuter
+motocykl
+tramwaj
+łódź
+rower
+statek
+balon
+kolej linowa
+poduszkowiec
+katamaran
+wózek
+prom
+taxi
+ruchome schody
+wózek inwalidzki
+samolot
+śmigłowiec
+szybowiec
+ambulans
+powóz
+fura
+okręt podwodny

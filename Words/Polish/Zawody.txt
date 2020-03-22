@@ -1,0 +1,33 @@
+naukowiec
+adwokat
+sędzia
+doktor
+pielęgniarka
+dentysta
+trener
+piosenkarz
+aktor
+muzyk
+polityk
+policjant
+oficer śledczy
+księgowy
+pilot
+marynarz
+żołnierz
+kierowca
+szef kuchni
+inżynier
+kelner
+architekt
+rzeźnik
+rybak
+myśliwy
+rolnik
+fryzjer
+mechanik
+model
+aptekarz
+fotograf
+hydraulik
+elektryk
