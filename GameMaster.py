@@ -12,6 +12,27 @@ score = 0
 cur_tries = 0
 max_tries = 7
 
+switcher = {
+    "Ą": "A",
+    "Ć": "C",
+    "Ę": "E",
+    "Ł": "L",
+    "Ń": "N",
+    "Ó": "O",
+    "Ś": "S",
+    "Ż": "Z",
+    "Ź": "Z",
+    "ą": "a",
+    "ć": "c",
+    "ę": "e",
+    "ł": "l",
+    "ń": "n",
+    "ó": "o",
+    "ś": "s",
+    "ż": "z",
+    "ź": "z",
+}
+
 
 def initialize_game(difficulty=-1, language="Polish"):
     global cur_tries, current_word, used_letters, used_words, score
@@ -74,17 +95,6 @@ def additional_upper(word):
 
 
 def additional_sort_key(letter):
-    switcher = {
-        "Ą": "A",
-        "Ć": "C",
-        "Ę": "E",
-        "Ł": "L",
-        "Ń": "N",
-        "Ó": "O",
-        "Ś": "S",
-        "Ż": "Z",
-        "Ź": "Z",
-    }
     if letter in string.ascii_letters:
         return ord(letter)
     if letter in switcher:
