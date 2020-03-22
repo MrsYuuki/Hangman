@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
+from PIL import ImageTk
 import Translator as translate
 import GameMaster as master
 import Language as lang
@@ -18,6 +19,8 @@ cur_diff = None
 cur_lang = None
 alphabet_buttons = None
 used_letters = None
+canvas = None
+image = None
 
 t, lang_code = translate.basic_language()
 t.install()
@@ -25,63 +28,76 @@ _ = t.gettext
 
 
 def launch_main_window(window, difficulty, language):
-    global main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters
+    global main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image
 
     used_letters = []
     cur_diff = difficulty
     cur_lang = language
     word_settings = master.initialize_game(cur_diff, cur_lang.folder_name)                                              #Slowo, lista liter, stan gry
+
     if window is not None:
         window.destroy()
 
     main_window = Tk()
     main_window.title(_("3, 2, 1... Hangman!"))
-    main_window.geometry('500x500')
+    main_window.geometry('1200x700')
+    main_window.configure(background="black")
     main_window.resizable(0, 0)
     main_window.focus_force()
     main_window.iconbitmap(master.resource_path("/icon.ico"))
 
     main_window.bind("<Key>", key_pressed_game)
 
-    windowWidth2 = 500
-    windowHeight2 = 500
+    windowWidth2 = 1200
+    windowHeight2 = 700
     positionRight2 = int(main_window.winfo_screenwidth() / 2 - windowWidth2 / 2)          # Gets both half the screen width/height and window width/height
     positionDown2 = int(main_window.winfo_screenheight() / 2 - windowHeight2 / 2)
     main_window.geometry("+{}+{}".format(positionRight2, positionDown2))                  # Positions the window in the center of the page.
 
     launch_alphabet(main_window, cur_lang.alphabet)
 
-    word_label = Label(main_window, text=split_word_to_view(word_settings[0]), font=("Times new roman", 25))
+    word_label = Label(main_window, text=split_word_to_view(word_settings[0]), font=("Times new roman", 40), bg="black", fg="white")
     word_label.pack()
-    word_label.place(relx=0.5, rely=0.25, anchor=CENTER)
+    word_label.place(relx=0.775, rely=0.3, anchor=CENTER)
 
-    score_label = Label(main_window, text=_("Score:") + ' ' + str(word_settings[3]), font=("Times new roman", 15))
+    score_label = Label(main_window, text=_("Score:") + ' ' + str(word_settings[3]), font=("Times new roman", 15), bg="black", fg="white")
     score_label.pack()
-    score_label.place(relx=0.8, rely=0.1, anchor=CENTER)
+    score_label.place(relx=0.9, rely=0.1, anchor=CENTER)
 
-    category_label = Label(main_window, text=word_settings[6], font=("Times new roman", 15))
+    category_label = Label(main_window, text=word_settings[6], font=("Times new roman", 15), bg="black", fg="white")
     category_label.pack()
-    category_label.place(relx=0.5, rely=0.4, anchor=CENTER)
+    category_label.place(relx=0.775, rely=0.4, anchor=CENTER)
 
-    used_letters_label = Label(main_window, text="", font=("Times new roman", 15))
+    used_letters_label = Label(main_window, text="", font=("Times new roman", 15), bg="black", fg="white")
     used_letters_label.pack()
-    used_letters_label.place(relx=0.5, rely=0.5, anchor=CENTER)
+    used_letters_label.place(relx=0.775, rely=0.5, anchor=CENTER)
 
-    tries_label = Label(main_window, text=str(word_settings[5]) + "/" + str(word_settings[4]), font=("Times new roman", 15))
+    tries_label = Label(main_window, text=str(word_settings[5]) + "/" + str(word_settings[4]), font=("Times new roman", 25), bg="black", fg="white")
     tries_label.pack()
-    tries_label.place(relx=0.5, rely=0.15, anchor=CENTER)
+    tries_label.place(relx=0.25, rely=0.05, anchor=CENTER)
+
+    canvas = Canvas(main_window, width=642, height=642, highlightthickness=0)
+    canvas.pack()
+    canvas.place(relx=0.0, rely=0.1)
+    image = PhotoImage(file=master.resource_path("/images/1.png"))
+    canvas.create_image(0, 0, anchor=NW, image=image)
+
 
     main_window.mainloop()
 
 
 def update_main_window(letter):
-    global score_label, word_label, tries_label, used_letters_label, alphabet_buttons, used_letters
+    global score_label, word_label, tries_label, used_letters_label, alphabet_buttons, used_letters, image
     info = master.update_game(letter)
     word_label.configure(text=split_word_to_view(info[0]))
     score_label.configure(text=_("Score:") + " " + str(info[3]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
     used_letters = info[1]
     used_letters_label.configure(text=sorted(list(used_letters), key=master.additional_sort_key))
+
+    canvas.delete(image)
+    image = PhotoImage(file=master.resource_path("/images/%s.png" % str(8-info[5])))
+    canvas.create_image(0, 0, anchor=NW, image=image)
 
     [b for b in alphabet_buttons if b['text'] == letter][0]['state'] = DISABLED
 
@@ -169,19 +185,19 @@ def launch_welcome_window():
 def launch_alphabet(window, alphabet):
     global alphabet_buttons
     alphabet_buttons = []
-    x = 0.15
+    x = 0.6
     y = 0.6
     length = 0
     for letter in alphabet:
-        alphabet_buttons.append(Button(window, text=letter, font=("Times new roman", 18), command=lambda let=letter: update_main_window(let), height=1, width=3))
+        alphabet_buttons.append(Button(window, text=letter, font=("Times new roman", 18), foreground="white", background="black", command=lambda let=letter: update_main_window(let), height=1, width=3))
         alphabet_buttons[-1].pack()
         alphabet_buttons[-1].place(relx=x, rely=y, anchor=CENTER)
         if length != 7:
-            x += 0.1
+            x += 0.05
             length += 1
         else:
-            x = 0.15
-            y += 0.1
+            x = 0.6
+            y += 0.08
             length = 0
 
 
