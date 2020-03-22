@@ -1,0 +1,32 @@
+algebra
+archaeology
+art
+band
+biology
+botany
+calculus
+chemistry
+computer science
+drama
+economics
+geography
+geology
+geometry
+gym
+health
+history
+home economics
+keyboarding
+language arts
+literature
+math
+mathematics
+music
+physical education
+physics
+psychology
+reading
+science
+social studies
+world geography
+writing

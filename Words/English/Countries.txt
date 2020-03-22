@@ -2,3 +2,26 @@ England
 Poland
 Germany
 Russia
+China
+India
+United States
+Indonesia
+Brazil
+Pakistan
+Bangladesh
+Nigeria
+Japan
+Mexico
+Philippines
+Vietnam
+Egypt
+Ethiopia
+Turkey
+Iran
+Thailand
+Congo
+France
+United Kingdom
+Italy
+South Korea
+Burma

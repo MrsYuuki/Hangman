@@ -1,0 +1,13 @@
+street
+avenue
+square
+building
+parade
+park
+sidewalk
+roadway
+mailbox
+fountain
+subway entrance
+train
+station
