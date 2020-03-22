@@ -73,9 +73,10 @@ def reset_game():
 
 def word_hider():
     global used_letters, current_word
+    ignore = [" ", "-", "'"]
     hidden_word = ""
     for l in list(current_word):
-        if l in used_letters or l.isspace():
+        if l in used_letters or l in ignore:
             hidden_word += l
         else:
             hidden_word += "_"
