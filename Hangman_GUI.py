@@ -81,7 +81,7 @@ def update_main_window(letter):
     score_label.configure(text=_("Score:") + " " + str(info[3]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
     used_letters = info[1]
-    used_letters_label.configure(text=str(used_letters))
+    used_letters_label.configure(text=sorted(list(used_letters), key=master.additional_sort_key))
 
     [b for b in alphabet_buttons if b['text'] == letter][0]['state'] = DISABLED
 

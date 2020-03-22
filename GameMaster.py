@@ -1,6 +1,6 @@
 # coding=utf-8
 import Word_Loader as wordloader
-import shelve
+import string
 import sys
 import os
 
@@ -71,6 +71,25 @@ def additional_upper(word):
         .replace("ś", "Ś")\
         .replace("ż", "Ż")\
         .replace("ź", "Ź")
+
+
+def additional_sort_key(letter):
+    switcher = {
+        "Ą": "A",
+        "Ć": "C",
+        "Ę": "E",
+        "Ł": "L",
+        "Ń": "N",
+        "Ó": "O",
+        "Ś": "S",
+        "Ż": "Z",
+        "Ź": "Z",
+    }
+    if letter in string.ascii_letters:
+        return ord(letter)
+    if letter in switcher:
+        return 0.5 + ord(switcher[letter])
+    return -1
 
 
 def resource_path(relative_path):
