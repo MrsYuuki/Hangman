@@ -51,4 +51,4 @@ def __load_words_lang(language):
         with open(join(path, cat), encoding='utf-8') as p:
             for w in p.readlines():
                 all_words.append((w, cat))
-    return all_words
+    return [w for w in all_words if len(w) > 0]
