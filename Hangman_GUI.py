@@ -89,7 +89,14 @@ def update_main_window(letter):
         messagebox.showinfo(_('3, 2, 1... Win!'), _('Correct!') + '\n' + _('Get ready for the next word...'))
         launch_main_window(main_window, cur_diff, cur_lang)
     if info[2] == 2:
-        messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + _('Final score:') + ' ' + str(info[3]))
+        d = shelve.open('data')
+        highscore = d['score']
+        if info[3] > highscore:
+            d['score'] = info[3]
+            messagebox.showinfo(_('3, 2, 1... Lose!'), _('New high score!') + '\n' + _('Final score:') + ' ' + str(info[3]))
+        else:
+            messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + _('Final score:') + ' ' + str(info[3]))
+        d.close()
         main_window.destroy()
         master.reset_game()
         launch_welcome_window()
