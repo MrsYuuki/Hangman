@@ -10,7 +10,7 @@ used_words = []
 score = 0
 
 cur_tries = 0
-max_tries = 7
+max_tries = 8
 
 switcher = {
     "Ą": "A",
@@ -35,7 +35,7 @@ switcher = {
 
 
 def initialize_game(difficulty=-1, language="Polish"):
-    global cur_tries, current_word, used_letters, used_words, score
+    global cur_tries, current_word, used_letters, used_words, score, max_tries
     loaded_word = wordloader.load_word(language, difficulty, used_words)
     if loaded_word[0] in used_words:
         used_words = []
@@ -43,6 +43,7 @@ def initialize_game(difficulty=-1, language="Polish"):
     current_word = additional_upper(loaded_word[0].strip())
     used_letters = []
     cur_tries = 0
+    max_tries = 8 - difficulty
     return [word_hider(), used_letters, 0, score, max_tries, max_tries - cur_tries, loaded_word[1].split(".")[0]]
 
 
