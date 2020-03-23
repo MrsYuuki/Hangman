@@ -4,6 +4,7 @@ import string
 import sys
 import os
 
+loaded_word = None
 current_word = None
 used_letters = []
 used_words = []
@@ -35,7 +36,7 @@ switcher = {
 
 
 def initialize_game(difficulty=-1, language="Polish"):
-    global cur_tries, current_word, used_letters, used_words, score, max_tries
+    global cur_tries, current_word, used_letters, used_words, score, max_tries, loaded_word
     loaded_word = wordloader.load_word(language, difficulty, used_words)
     if loaded_word[0] in used_words:
         used_words = []
@@ -48,21 +49,21 @@ def initialize_game(difficulty=-1, language="Polish"):
 
 
 def update_game(letter):
-    global cur_tries, used_letters, score
+    global cur_tries, used_letters, score, loaded_word
     letter = additional_upper(letter)
     used_letters.append(letter)
-    hided_word = word_hider()
+    hidden_word = word_hider()
     if letter not in current_word:
         cur_tries += 1
     else:
         score += current_word.count(letter)
 
-    if "_" not in hided_word:  # win
+    if "_" not in hidden_word:  # win
         score += 10 * len(used_words)
-        return [hided_word, used_letters, 1, score, max_tries, max_tries - cur_tries]
+        return [hidden_word, used_letters, 1, score, max_tries, max_tries - cur_tries]
     elif cur_tries == max_tries:  # lose
-        return [hided_word, used_letters, 2, score, max_tries, max_tries - cur_tries]
-    return [hided_word, used_letters, 0, score, max_tries, max_tries - cur_tries]
+        return [hidden_word, used_letters, 2, score, max_tries, max_tries - cur_tries, loaded_word[0]]
+    return [hidden_word, used_letters, 0, score, max_tries, max_tries - cur_tries]
 
 
 def reset_game():

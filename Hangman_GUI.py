@@ -79,9 +79,8 @@ def launch_main_window(window, difficulty, language):
     canvas = Canvas(main_window, width=642, height=642, highlightthickness=0)
     canvas.pack()
     canvas.place(relx=0.0, rely=0.1)
-    image = PhotoImage(file=master.resource_path("/images/1.png"))
+    image = PhotoImage(file=master.resource_path("/images/%s.png" % str(8 - word_settings[5])))
     canvas.create_image(0, 0, anchor=NW, image=image)
-
 
     main_window.mainloop()
 
@@ -96,7 +95,7 @@ def update_main_window(letter):
     used_letters_label.configure(text=sorted(list(used_letters), key=master.additional_sort_key))
 
     canvas.delete(image)
-    image = PhotoImage(file=master.resource_path("/images/%s.png" % str(8-info[5])))
+    image = PhotoImage(file=master.resource_path("/images/%s.png" % str(8 - info[5])))
     canvas.create_image(0, 0, anchor=NW, image=image)
 
     [b for b in alphabet_buttons if b['text'] == letter][0]['state'] = DISABLED
@@ -111,7 +110,7 @@ def update_main_window(letter):
             d['score'] = info[3]
             messagebox.showinfo(_('3, 2, 1... Lose!'), _('New high score!') + '\n' + _('Final score:') + ' ' + str(info[3]))
         else:
-            messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + _('Final score:') + ' ' + str(info[3]))
+            messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + str(info[6]) + '\n' + _('Final score:') + ' ' + str(info[3]))
         d.close()
         main_window.destroy()
         master.reset_game()
