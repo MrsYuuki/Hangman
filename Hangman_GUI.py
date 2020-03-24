@@ -56,23 +56,23 @@ def launch_main_window(window, difficulty, language):
 
     launch_alphabet(main_window, cur_lang.alphabet)
 
-    word_label = Label(main_window, text=split_word_to_view(word_settings[0]), font=("Times new roman", 40), bg="black", fg="white")
+    word_label = Label(main_window, text=split_word_to_view(word_settings[0]), font=("Courier new", 20), bg="black", fg="white")
     word_label.pack()
     word_label.place(relx=0.775, rely=0.3, anchor=CENTER)
 
-    score_label = Label(main_window, text=_("Score:") + ' ' + str(word_settings[3]), font=("Times new roman", 15), bg="black", fg="white")
+    score_label = Label(main_window, text=_("Score:") + ' ' + str(word_settings[3]), font=("Courier new", 15), bg="black", fg="white")
     score_label.pack()
     score_label.place(relx=0.9, rely=0.1, anchor=CENTER)
 
-    category_label = Label(main_window, text=word_settings[6], font=("Times new roman", 15), bg="black", fg="white")
+    category_label = Label(main_window, text=word_settings[6], font=("Courier new", 15), bg="black", fg="white")
     category_label.pack()
     category_label.place(relx=0.775, rely=0.4, anchor=CENTER)
 
-    used_letters_label = Label(main_window, text="", font=("Times new roman", 15), bg="black", fg="white")
+    used_letters_label = Label(main_window, text="", font=("Courier new", 15), bg="black", fg="white")
     used_letters_label.pack()
     used_letters_label.place(relx=0.775, rely=0.5, anchor=CENTER)
 
-    tries_label = Label(main_window, text=str(word_settings[5]) + "/" + str(word_settings[4]), font=("Times new roman", 25), bg="black", fg="white")
+    tries_label = Label(main_window, text=str(word_settings[5]) + "/" + str(word_settings[4]), font=("Courier new", 25), bg="black", fg="white")
     tries_label.pack()
     tries_label.place(relx=0.25, rely=0.05, anchor=CENTER)
 
@@ -136,6 +136,7 @@ def launch_welcome_window():
     welcome_window.iconbitmap(master.resource_path("/icon.ico"))
     welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
+    welcome_window.configure(bg="grey")
     welcome_window.focus_force()
 
     windowWidth = welcome_window.winfo_reqwidth()                                           # Gets the requested values of the height and widht.
@@ -156,27 +157,27 @@ def launch_welcome_window():
     languages_list.bind("<<ComboboxSelected>>", lambda x: language_changed([l for l in languages if l.display_name == languages_list.get()][0]))
     languages_list.place(relx=0.5, rely=0.95, anchor=E)
 
-    welcome_label = Label(welcome_window, text=_("Hangman!") + "\n" + _("Choose difficulty") + "\n", font=("Times new roman", 16))
+    welcome_label = Label(welcome_window, text=_("Hangman!") + "\n" + _("Choose difficulty") + "\n", font=("Courier new", 16), bg="grey")
     welcome_label.pack()
     welcome_label.place(relx=0.5, rely=0.15, anchor=CENTER)
 
     d = shelve.open('data')
-    score_label = Label(welcome_window, text=_("High Score:") + ' ' + str(d['score']), font=("Times new roman", 13))
+    score_label = Label(welcome_window, text=_("High Score:") + ' ' + str(d['score']), font=("Times new roman", 13), bg="grey")
     score_label.pack()
-    score_label.place(relx=0.5, rely=0.95, anchor=W)
+    score_label.place(relx=0.65, rely=0.95, anchor=W)
     d.close()
 
-    first_button = Button(welcome_window, text=_("Easy"), font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
+    first_button = Button(welcome_window, text=_("Easy"), font=("Courier new", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     first_button.pack()
-    first_button.place(relx=0.5, rely=0.3, anchor=CENTER)
+    first_button.place(relx=0.5, rely=0.35, anchor=CENTER)
 
-    second_button = Button(welcome_window, text=_("Medium"), font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 1, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
+    second_button = Button(welcome_window, text=_("Medium"), font=("Courier new", 14), command=lambda: launch_main_window(welcome_window, 1, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     second_button.pack()
     second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-    third_button = Button(welcome_window, text=_("Hard"), font=("Times new roman", 14), command=lambda: launch_main_window(welcome_window, 2, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10)
+    third_button = Button(welcome_window, text=_("Hard"), font=("Courier new", 14), command=lambda: launch_main_window(welcome_window, 2, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     third_button.pack()
-    third_button.place(relx=0.5, rely=0.8, anchor=CENTER)
+    third_button.place(relx=0.5, rely=0.75, anchor=CENTER)
 
     welcome_window.mainloop()
 
@@ -188,7 +189,7 @@ def launch_alphabet(window, alphabet):
     y = 0.6
     length = 0
     for letter in alphabet:
-        alphabet_buttons.append(Button(window, text=letter, font=("Times new roman", 18), foreground="white", background="black", command=lambda let=letter: update_main_window(let), height=1, width=3))
+        alphabet_buttons.append(Button(window, text=letter, font=("Courier new", 18), foreground="white", background="black", command=lambda let=letter: update_main_window(let), height=1, width=3))
         alphabet_buttons[-1].pack()
         alphabet_buttons[-1].place(relx=x, rely=y, anchor=CENTER)
         if length != 7:
