@@ -11,6 +11,7 @@ import shelve
 main_window = None
 root = None
 welcome_window = None
+welcome_root = None
 word_label = None
 score_label = None
 tries_label = None
@@ -161,7 +162,7 @@ def split_word_to_view(word):
 
 
 def launch_welcome_window(windows=None):
-    global welcome_window, lang_code
+    global welcome_window, welcome_root, lang_code
 
     if windows is not None:
         for w in windows:
@@ -248,10 +249,11 @@ def launch_alphabet(window, alphabet):
 
 
 def language_changed(language):
-    global t, _, welcome_window, lang_code
+    global t, _, welcome_window, welcome_root, lang_code
     t = translate.language_change(language.lang_code)
     t.install()
     _ = t.gettext
     welcome_window.destroy()
+    welcome_root.destroy()
     lang_code = language.lang_code
     launch_welcome_window()
