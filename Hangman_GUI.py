@@ -9,6 +9,7 @@ import Language as lang
 import shelve
 
 main_window = None
+root = None
 welcome_window = None
 word_label = None
 score_label = None
@@ -27,24 +28,30 @@ t.install()
 _ = t.gettext
 
 
-def launch_main_window(window, difficulty, language):
-    global main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image
+def launch_main_window(windows, difficulty, language):
+    global root, main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image
 
     used_letters = []
     cur_diff = difficulty
     cur_lang = language
     word_settings = master.initialize_game(cur_diff, cur_lang.folder_name)                                              #Slowo, lista liter, stan gry
 
-    if window is not None:
-        window.destroy()
+    for w in windows:
+        w.destroy()
 
-    main_window = Tk()
+    root = Tk()
+    root.attributes("-alpha", 0.0)
+
+    main_window = Toplevel(root)
+    main_window.overrideredirect(1)
     main_window.title(_("3, 2, 1... Hangman!"))
     main_window.geometry('1200x700')
     main_window.configure(background="black")
     main_window.resizable(0, 0)
     main_window.focus_force()
-    main_window.iconbitmap(master.resource_path("/icon.ico"))
+
+    root.bind("<Unmap>", lambda x: main_window.withdraw())
+    root.bind("<Map>", lambda x: main_window.deiconify())
 
     main_window.bind("<Key>", key_pressed_game)
 
@@ -60,9 +67,13 @@ def launch_main_window(window, difficulty, language):
     word_label.pack()
     word_label.place(relx=0.775, rely=0.3, anchor=CENTER)
 
+    surrender_button = Button(main_window, text=_("Surrender"), font=("Courier new", 14), command=lambda: launch_welcome_window([main_window, root]), height=1, width=10, bg="grey")
+    surrender_button.pack()
+    surrender_button.place(relx=0.9, rely=0.05, anchor=CENTER)
+
     score_label = Label(main_window, text=_("Score:") + ' ' + str(word_settings[3]), font=("Courier new", 15), bg="black", fg="white")
     score_label.pack()
-    score_label.place(relx=0.9, rely=0.1, anchor=CENTER)
+    score_label.place(relx=0.9, rely=0.15, anchor=CENTER)
 
     category_label = Label(main_window, text=word_settings[6], font=("Courier new", 15), bg="black", fg="white")
     category_label.pack()
@@ -85,6 +96,24 @@ def launch_main_window(window, difficulty, language):
     main_window.mainloop()
 
 
+def newword_main_window():
+    global root, main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image, alphabet_button
+    info = master.initialize_game(cur_diff, cur_lang.folder_name)
+    word_label.configure(text=split_word_to_view(info[0]))
+    tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
+    used_letters = info[1]
+    used_letters_label.configure(text=sorted(list(used_letters), key=master.additional_sort_key))
+    category_label.configure(text=info[6])
+
+    canvas.delete(image)
+    image = PhotoImage(file=master.resource_path("/images/%s.png" % str(8 - info[5])))
+    canvas.create_image(0, 0, anchor=NW, image=image)
+
+    for b in alphabet_buttons:
+        b.destroy()
+    launch_alphabet(main_window, cur_lang.alphabet)
+
+
 def update_main_window(letter):
     global score_label, word_label, tries_label, used_letters_label, alphabet_buttons, used_letters, image
     info = master.update_game(letter)
@@ -102,7 +131,7 @@ def update_main_window(letter):
 
     if info[2] == 1:
         messagebox.showinfo(_('3, 2, 1... Win!'), _('Correct!') + '\n' + _('Get ready for the next word...'))
-        launch_main_window(main_window, cur_diff, cur_lang)
+        newword_main_window()
     if info[2] == 2:
         d = shelve.open('data')
         highscore = d['score']
@@ -113,6 +142,7 @@ def update_main_window(letter):
             messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + str(info[6]) + '\n' + _('Final score:') + ' ' + str(info[3]))
         d.close()
         main_window.destroy()
+        root.destroy()
         master.reset_game()
         launch_welcome_window()
 
@@ -130,14 +160,26 @@ def split_word_to_view(word):
     return view_word
 
 
-def launch_welcome_window():
+def launch_welcome_window(windows=None):
     global welcome_window, lang_code
-    welcome_window = Tk()
-    welcome_window.iconbitmap(master.resource_path("/icon.ico"))
+
+    if windows is not None:
+        for w in windows:
+            w.destroy()
+
+    welcome_root = Tk()
+    welcome_root.attributes("-alpha", 0.0)
+
+    welcome_window = Toplevel(welcome_root)
+    welcome_window.overrideredirect(1)
+    #welcome_window.iconbitmap(master.resource_path("/icon.ico"))
     welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
     welcome_window.configure(bg="grey")
     welcome_window.focus_force()
+
+    welcome_root.bind("<Unmap>", lambda x: welcome_window.withdraw())
+    welcome_root.bind("<Map>", lambda x: welcome_window.deiconify())
 
     windowWidth = welcome_window.winfo_reqwidth()                                           # Gets the requested values of the height and widht.
     windowHeight = welcome_window.winfo_reqheight()
@@ -167,17 +209,21 @@ def launch_welcome_window():
     score_label.place(relx=0.65, rely=0.95, anchor=W)
     d.close()
 
-    first_button = Button(welcome_window, text=_("Easy"), font=("Courier new", 14), command=lambda: launch_main_window(welcome_window, 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
+    first_button = Button(welcome_window, text=_("Easy"), font=("Courier new", 14), command=lambda: launch_main_window([welcome_window, welcome_root], 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     first_button.pack()
     first_button.place(relx=0.5, rely=0.35, anchor=CENTER)
 
-    second_button = Button(welcome_window, text=_("Medium"), font=("Courier new", 14), command=lambda: launch_main_window(welcome_window, 1, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
+    second_button = Button(welcome_window, text=_("Medium"), font=("Courier new", 14), command=lambda: launch_main_window([welcome_window, welcome_root], 1, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     second_button.pack()
     second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
 
-    third_button = Button(welcome_window, text=_("Hard"), font=("Courier new", 14), command=lambda: launch_main_window(welcome_window, 2, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
+    third_button = Button(welcome_window, text=_("Hard"), font=("Courier new", 14), command=lambda: launch_main_window([welcome_window, welcome_root], 2, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     third_button.pack()
     third_button.place(relx=0.5, rely=0.75, anchor=CENTER)
+
+    exit_button = Button(welcome_window, text=_("Exit"), font=("Courier new", 14), command=lambda: welcome_root.destroy(), height=1, width=10, bg="grey")
+    exit_button.pack()
+    exit_button.place(relx=0.5, rely=0.75, anchor=W)
 
     welcome_window.mainloop()
 
