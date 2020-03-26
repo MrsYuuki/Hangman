@@ -50,6 +50,9 @@ def initialize_game(difficulty=-1, language="Polish"):
 
 def update_game(letter):
     global cur_tries, used_letters, score, loaded_word
+    if cur_tries == max_tries:
+        return [word_hider(), used_letters, 0, score, max_tries, max_tries - cur_tries]
+
     letter = additional_upper(letter)
     used_letters.append(letter)
     hidden_word = word_hider()

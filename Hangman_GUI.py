@@ -42,6 +42,7 @@ def launch_main_window(windows, difficulty, language):
 
     root = Tk()
     root.attributes("-alpha", 0.0)
+    root.iconbitmap(master.resource_path("/icon.ico"))
 
     main_window = Toplevel(root)
     main_window.overrideredirect(1)
@@ -170,10 +171,10 @@ def launch_welcome_window(windows=None):
 
     welcome_root = Tk()
     welcome_root.attributes("-alpha", 0.0)
+    welcome_root.iconbitmap(master.resource_path("/icon.ico"))
 
     welcome_window = Toplevel(welcome_root)
     welcome_window.overrideredirect(1)
-    #welcome_window.iconbitmap(master.resource_path("/icon.ico"))
     welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
     welcome_window.configure(bg="grey")
