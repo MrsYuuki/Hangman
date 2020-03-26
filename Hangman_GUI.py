@@ -2,7 +2,6 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-from PIL import ImageTk
 import Translator as translate
 import GameMaster as master
 import Language as lang

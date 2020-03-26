@@ -2,7 +2,6 @@ import gettext
 import locale
 import shelve
 import GameMaster as master
-from os import getcwd
 
 languages = {
     'en_US': gettext.translation('gui', localedir=master.resource_path('\\locale'), languages=['en_US']),
