@@ -44,12 +44,12 @@ def launch_main_window(windows, difficulty, language):
         w.destroy()
 
     root = Tk()
+    root.title(_("3, 2, 1... Hangman!"))
     root.attributes("-alpha", 0.0)
     root.iconbitmap(master.resource_path("/icon.ico"))
 
     main_window = Toplevel(root)
     main_window.overrideredirect(1)
-    main_window.title(_("3, 2, 1... Hangman!"))
     main_window.geometry('1200x700')
     main_window.configure(background="black")
     main_window.resizable(0, 0)
@@ -153,10 +153,10 @@ def lose_game():
     if cur_score > highscore:
         d['score'] = cur_score
         messagebox.showinfo(_('3, 2, 1... Lose!'),
-                            _('New high score!') + '\n\n' + _('It was... ') + cur_word + _('Final score:') + ' ' + str(cur_score))
+                            _('New high score!') + '\n\n' + _('It was... ') + cur_word + '\n' + _('Final score:') + ' ' + str(cur_score))
     else:
         messagebox.showinfo(_('3, 2, 1... Lose!'),
-                            _('You lose!') + '\n\n' + _('It was... ') + cur_word + _('Final score:') + ' ' + str(cur_score))
+                            _('You lose!') + '\n\n' + _('It was... ') + cur_word + '\n' + _('Final score:') + ' ' + str(cur_score))
     d.close()
     main_window.destroy()
     root.destroy()
@@ -185,12 +185,12 @@ def launch_welcome_window(windows=None):
             w.destroy()
 
     welcome_root = Tk()
+    welcome_root.title(_("Hangman"))
     welcome_root.attributes("-alpha", 0.0)
     welcome_root.iconbitmap(master.resource_path("/icon.ico"))
 
     welcome_window = Toplevel(welcome_root)
     welcome_window.overrideredirect(1)
-    welcome_window.title(_("Hangman"))
     welcome_window.geometry('300x250')
     welcome_window.configure(bg="grey")
     welcome_window.focus_force()

@@ -45,7 +45,7 @@ def initialize_game(difficulty=-1, language="Polish"):
     used_letters = []
     cur_tries = 0
     max_tries = 8 - difficulty
-    return [word_hider(), used_letters, 0, score, max_tries, max_tries - cur_tries, loaded_word[1].split(".")[0], loaded_word[0]]
+    return [word_hider(), used_letters, 0, score, max_tries, max_tries - cur_tries, loaded_word[1].split(".")[0], current_word]
 
 
 def update_game(letter):
