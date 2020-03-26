@@ -212,19 +212,19 @@ def launch_welcome_window(windows=None):
 
     first_button = Button(welcome_window, text=_("Easy"), font=("Courier new", 14), command=lambda: launch_main_window([welcome_window, welcome_root], 0, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     first_button.pack()
-    first_button.place(relx=0.5, rely=0.35, anchor=CENTER)
+    first_button.place(relx=0.5, rely=0.30, anchor=CENTER)
 
     second_button = Button(welcome_window, text=_("Medium"), font=("Courier new", 14), command=lambda: launch_main_window([welcome_window, welcome_root], 1, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     second_button.pack()
-    second_button.place(relx=0.5, rely=0.55, anchor=CENTER)
+    second_button.place(relx=0.5, rely=0.45, anchor=CENTER)
 
     third_button = Button(welcome_window, text=_("Hard"), font=("Courier new", 14), command=lambda: launch_main_window([welcome_window, welcome_root], 2, [l for l in languages if l.display_name == languages_list.get()][0]), height=1, width=10, bg="grey")
     third_button.pack()
-    third_button.place(relx=0.5, rely=0.75, anchor=CENTER)
+    third_button.place(relx=0.5, rely=0.60, anchor=CENTER)
 
     exit_button = Button(welcome_window, text=_("Exit"), font=("Courier new", 14), command=lambda: welcome_root.destroy(), height=1, width=10, bg="grey")
     exit_button.pack()
-    exit_button.place(relx=0.5, rely=0.75, anchor=W)
+    exit_button.place(relx=0.5, rely=0.80, anchor=W)
 
     welcome_window.mainloop()
 
