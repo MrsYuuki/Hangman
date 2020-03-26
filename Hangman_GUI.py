@@ -24,7 +24,12 @@ canvas = None
 image = None
 
 cur_word = None
-cur_score = 0
+cur_score = None
+
+welcome_x = None
+welcome_y = None
+main_x = None
+main_y = None
 
 t, lang_code = translate.basic_language()
 t.install()
@@ -32,11 +37,12 @@ _ = t.gettext
 
 
 def launch_main_window(windows, difficulty, language):
-    global root, main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image, cur_word
+    global root, main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image, cur_word, cur_score
 
     used_letters = []
     cur_diff = difficulty
     cur_lang = language
+    cur_score = 0
     word_settings = master.initialize_game(cur_diff, cur_lang.folder_name)                                              #Slowo, lista liter, stan gry
 
     for w in windows:
@@ -58,6 +64,9 @@ def launch_main_window(windows, difficulty, language):
     root.bind("<Map>", lambda x: main_window.deiconify())
 
     main_window.bind("<Key>", key_pressed_game)
+    main_window.bind("<ButtonPress-1>", StartMoveMain)
+    main_window.bind("<ButtonRelease-1>", StopMove)
+    main_window.bind("<B1-Motion>", OnMotionMain)
 
     windowWidth2 = 1200
     windowHeight2 = 700
@@ -197,6 +206,10 @@ def launch_welcome_window(windows=None):
     welcome_root.bind("<Unmap>", lambda x: welcome_window.withdraw())
     welcome_root.bind("<Map>", lambda x: welcome_window.deiconify())
 
+    welcome_window.bind("<ButtonPress-1>", StartMoveWelcome)
+    welcome_window.bind("<ButtonRelease-1>", StopMove)
+    welcome_window.bind("<B1-Motion>", OnMotionWelcome)
+
     windowWidth = welcome_window.winfo_reqwidth()                                           # Gets the requested values of the height and widht.
     windowHeight = welcome_window.winfo_reqheight()
 
@@ -242,6 +255,42 @@ def launch_welcome_window(windows=None):
     exit_button.place(relx=0.5, rely=0.80, anchor=W)
 
     welcome_window.mainloop()
+
+
+def StartMoveWelcome(event):
+    global welcome_x, welcome_y
+    welcome_x = event.x
+    welcome_y = event.y
+
+
+def StartMoveMain(event):
+    global main_x, main_y
+    main_x = event.x
+    main_y = event.y
+
+
+def StopMove(event):
+    global welcome_x, welcome_y, main_x, main_y
+    welcome_x = None
+    welcome_y = None
+    main_x = None
+    main_y = None
+
+
+def OnMotionWelcome(event):
+    deltax = event.x - welcome_x
+    deltay = event.y - welcome_y
+    x = welcome_window.winfo_x() + deltax
+    y = welcome_window.winfo_y() + deltay
+    welcome_window.geometry("+%s+%s" % (x, y))
+
+
+def OnMotionMain(event):
+    deltax = event.x - main_x
+    deltay = event.y - main_y
+    x = main_window.winfo_x() + deltax
+    y = main_window.winfo_y() + deltay
+    main_window.geometry("+%s+%s" % (x, y))
 
 
 def launch_alphabet(window, alphabet):
