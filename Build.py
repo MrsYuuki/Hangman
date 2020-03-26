@@ -1,8 +1,14 @@
 import os
 
-os.system('pyinstaller -y -F -w -i "D:/Repos/Hangman/icon.ico" '
-          '--add-data "D:/Repos/Hangman/Words";"Words/" '
-          '--add-data "D:/Repos/Hangman/locale";"locale/" '
-          '--add-data "D:/Repos/Hangman/images";"images/" '
-          '--add-data "D:/Repos/Hangman/icon.ico";'
-          '"." -n Hangman  "D:/Repos/Hangman/Starter.py"')
+path = os.path.abspath(".").replace("\\", "/")
+iconpath = '"{}/icon.ico"'.format(path)
+wordspath = '"{}/Words";"Words/"'.format(path)
+localepath = '"{}/locale";"locale/"'.format(path)
+imagespath = '"{}/images";"images/"'.format(path)
+
+os.system('pyinstaller -y -F -w -i {} '
+          '--add-data {} '
+          '--add-data {} '
+          '--add-data {} '
+          '--add-data {};'
+          '"." -n Hangman "D:/Repos/Hangman/Starter.py"'.format(iconpath, wordspath, localepath, imagespath, iconpath))
