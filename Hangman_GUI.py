@@ -139,7 +139,7 @@ def update_main_window(letter):
         highscore = d['score']
         if info[3] > highscore:
             d['score'] = info[3]
-            messagebox.showinfo(_('3, 2, 1... Lose!'), _('New high score!') + '\n' + str(info[6]) + '\n' + _('Final score:') + ' ' + str(info[3]))
+            messagebox.showinfo(_('3, 2, 1... Lose!'), _('New high score!') + '\n' + _('It was... ') + str(info[6]) + '\n' + _('Final score:') + ' ' + str(info[3]))
         else:
             messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + str(info[6]) + '\n' + _('Final score:') + ' ' + str(info[3]))
         d.close()

@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.1\n"
+"Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: szymonosis@o2.pl\n"
-"POT-Creation-Date: 2020-03-22 13:27+0100\n"
+"POT-Creation-Date: 2020-03-26 04:15+0100\n"
 "PO-Revision-Date: 2020-03-19 15:36+0100\n"
 "Last-Translator: GanzeVA <szymonosis@o2.pl>\n"
 "Language: pl_PL\n"
@@ -17,67 +17,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:38
+#: D:/Repos/Hangman/Hangman_GUI.py:49
 msgid "3, 2, 1... Hangman!"
 msgstr ""
 
-#: D:/Repos/Hangman/Hangman_GUI.py:58 D:/Repos/Hangman/Hangman_GUI.py:81
+#: D:/Repos/Hangman/Hangman_GUI.py:72
+msgid "Surrender"
+msgstr "Poddaj się"
+
+#: D:/Repos/Hangman/Hangman_GUI.py:76 D:/Repos/Hangman/Hangman_GUI.py:123
 msgid "Score:"
 msgstr "Wynik:"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:89
+#: D:/Repos/Hangman/Hangman_GUI.py:135
 msgid "3, 2, 1... Win!"
 msgstr "3, 2, 1... Wygrana!"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:89
+#: D:/Repos/Hangman/Hangman_GUI.py:135
 msgid "Correct!"
 msgstr "Brawo!"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:89
+#: D:/Repos/Hangman/Hangman_GUI.py:135
 msgid "Get ready for the next word..."
 msgstr "Przygotuj się na kolejne słowo..."
 
-#: D:/Repos/Hangman/Hangman_GUI.py:96 D:/Repos/Hangman/Hangman_GUI.py:98
+#: D:/Repos/Hangman/Hangman_GUI.py:142 D:/Repos/Hangman/Hangman_GUI.py:144
 msgid "3, 2, 1... Lose!"
 msgstr "3, 2, 1... Przegrana!"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:96
+#: D:/Repos/Hangman/Hangman_GUI.py:142
 msgid "New high score!"
 msgstr "Nowy rekord!"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:96 D:/Repos/Hangman/Hangman_GUI.py:98
+#: D:/Repos/Hangman/Hangman_GUI.py:142
+msgid "It was... "
+msgstr "To słowo to... "
+
+#: D:/Repos/Hangman/Hangman_GUI.py:142 D:/Repos/Hangman/Hangman_GUI.py:144
 msgid "Final score:"
 msgstr "Twój wynik:"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:98
+#: D:/Repos/Hangman/Hangman_GUI.py:144
 msgid "You lose!"
 msgstr "Przegrałeś!"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:122
+#: D:/Repos/Hangman/Hangman_GUI.py:178
 msgid "Hangman"
 msgstr ""
 
-#: D:/Repos/Hangman/Hangman_GUI.py:144
+#: D:/Repos/Hangman/Hangman_GUI.py:204
 msgid "Hangman!"
 msgstr ""
 
-#: D:/Repos/Hangman/Hangman_GUI.py:144
+#: D:/Repos/Hangman/Hangman_GUI.py:204
 msgid "Choose difficulty"
 msgstr "Wybierz poziom"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:149
+#: D:/Repos/Hangman/Hangman_GUI.py:209
 msgid "High Score:"
 msgstr "Rekord:"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:154
+#: D:/Repos/Hangman/Hangman_GUI.py:214
 msgid "Easy"
 msgstr "Łatwy"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:158
+#: D:/Repos/Hangman/Hangman_GUI.py:218
 msgid "Medium"
 msgstr "Średni"
 
-#: D:/Repos/Hangman/Hangman_GUI.py:162
+#: D:/Repos/Hangman/Hangman_GUI.py:222
 msgid "Hard"
 msgstr "Trudny"
 
+#: D:/Repos/Hangman/Hangman_GUI.py:226
+msgid "Exit"
+msgstr "Wyjdź"
