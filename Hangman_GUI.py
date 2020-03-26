@@ -24,13 +24,16 @@ used_letters = None
 canvas = None
 image = None
 
+cur_word = None
+cur_score = 0
+
 t, lang_code = translate.basic_language()
 t.install()
 _ = t.gettext
 
 
 def launch_main_window(windows, difficulty, language):
-    global root, main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image
+    global root, main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image, cur_word
 
     used_letters = []
     cur_diff = difficulty
@@ -69,7 +72,7 @@ def launch_main_window(windows, difficulty, language):
     word_label.pack()
     word_label.place(relx=0.775, rely=0.3, anchor=CENTER)
 
-    surrender_button = Button(main_window, text=_("Surrender"), font=("Courier new", 14), command=lambda: launch_welcome_window([main_window, root]), height=1, width=10, bg="grey")
+    surrender_button = Button(main_window, text=_("Surrender"), font=("Courier new", 14), command=lambda: lose_game(), height=1, width=10, bg="grey")
     surrender_button.pack()
     surrender_button.place(relx=0.9, rely=0.05, anchor=CENTER)
 
@@ -95,17 +98,21 @@ def launch_main_window(windows, difficulty, language):
     image = PhotoImage(file=master.resource_path("/images/%s.png" % str(8 - word_settings[5])))
     canvas.create_image(0, 0, anchor=NW, image=image)
 
+    cur_word = word_settings[7]
+
     main_window.mainloop()
 
 
 def newword_main_window():
-    global root, main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image, alphabet_button
+    global root, main_window, word_label, score_label, tries_label, category_label, used_letters_label, cur_diff, cur_lang, used_letters, canvas, image, alphabet_button, cur_word
     info = master.initialize_game(cur_diff, cur_lang.folder_name)
     word_label.configure(text=split_word_to_view(info[0]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
     used_letters = info[1]
     used_letters_label.configure(text=sorted(list(used_letters), key=master.additional_sort_key))
     category_label.configure(text=info[6])
+
+    cur_word = info[7]
 
     canvas.delete(image)
     image = PhotoImage(file=master.resource_path("/images/%s.png" % str(8 - info[5])))
@@ -117,9 +124,10 @@ def newword_main_window():
 
 
 def update_main_window(letter):
-    global score_label, word_label, tries_label, used_letters_label, alphabet_buttons, used_letters, image
+    global score_label, word_label, tries_label, used_letters_label, alphabet_buttons, used_letters, image, cur_score
     info = master.update_game(letter)
     word_label.configure(text=split_word_to_view(info[0]))
+    cur_score = info[3]
     score_label.configure(text=_("Score:") + " " + str(info[3]))
     tries_label.configure(text=str(info[5]) + "/" + str(info[4]))
     used_letters = info[1]
@@ -135,18 +143,25 @@ def update_main_window(letter):
         messagebox.showinfo(_('3, 2, 1... Win!'), _('Correct!') + '\n' + _('Get ready for the next word...'))
         newword_main_window()
     if info[2] == 2:
-        d = shelve.open('data')
-        highscore = d['score']
-        if info[3] > highscore:
-            d['score'] = info[3]
-            messagebox.showinfo(_('3, 2, 1... Lose!'), _('New high score!') + '\n' + _('It was... ') + str(info[6]) + '\n' + _('Final score:') + ' ' + str(info[3]))
-        else:
-            messagebox.showinfo(_('3, 2, 1... Lose!'), _('You lose!') + '\n' + str(info[6]) + '\n' + _('Final score:') + ' ' + str(info[3]))
-        d.close()
-        main_window.destroy()
-        root.destroy()
-        master.reset_game()
-        launch_welcome_window()
+        lose_game()
+
+
+def lose_game():
+    global main_window, root
+    d = shelve.open('data')
+    highscore = d['score']
+    if cur_score > highscore:
+        d['score'] = cur_score
+        messagebox.showinfo(_('3, 2, 1... Lose!'),
+                            _('New high score!') + '\n\n' + _('It was... ') + cur_word + _('Final score:') + ' ' + str(cur_score))
+    else:
+        messagebox.showinfo(_('3, 2, 1... Lose!'),
+                            _('You lose!') + '\n\n' + _('It was... ') + cur_word + _('Final score:') + ' ' + str(cur_score))
+    d.close()
+    main_window.destroy()
+    root.destroy()
+    master.reset_game()
+    launch_welcome_window()
 
 
 def key_pressed_game(event):
