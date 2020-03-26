@@ -1,10 +1,5 @@
 # coding=utf-8
 class Language:
-    folder_name=None
-    display_name=None
-    alphabet=None
-    lang_code=None
-
     def __init__(self, folder_name, display_name, lang_code, alphabet):
         self.folder_name = folder_name
         self.alphabet = alphabet
